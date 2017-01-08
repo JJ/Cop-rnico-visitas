@@ -1,0 +1,41 @@
+---
+title: "Copérnico famoso por un día"
+author: "JJ Merelo"
+date: "8 de enero de 2017"
+output: html_document
+abstract: |
+  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido una cantidad considerable de atención en estos días. Veamos exactamente cuanta. 
+---
+
+#Introducción
+
+La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante este *script*:
+
+~~~
+curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2017010100/2017010800 | jq '.items[] | .views ' > 2017.dat
+curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2016010100/2016010800 | jq '.items[] | .views ' > 2016.dat
+~~~
+que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa: las visitas, y lo vertimos en sendos ficheros de datos.
+
+Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
+```{r setup}
+library(ggplot2)
+library(ggthemes)
+datos.2016 <- read.table('2016.dat')
+datos.2017 <- read.table('2017.dat')
+datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
+                    year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
+                    visitas=c(datos.2016$V1,datos.2017$V1))
+```
+
+A continuación trazamos los datos de cada día, por año. 
+
+```{r imagen}
+ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+```
+
+#Conclusión
+
+Las visitas a día equivalente se han multiplicado por 15, más o menos. Será interesante ver cómo decaen de aquí en adelante.
+
+Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre.
