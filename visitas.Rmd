@@ -1,7 +1,7 @@
 ---
 title: "Copérnico famoso por un día"
 author: "JJ Merelo"
-date: "8 de enero de 2017"
+date: "9 de enero de 2017"
 output: html_document
 abstract: |
   A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido una cantidad considerable de atención en estos días. Veamos exactamente cuanta. 
