@@ -53,6 +53,8 @@ ranking.07 <- fromJSON("ranking-070117.json")
 ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ranking.08 <- fromJSON("ranking-080117.json")
 ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
+ranking.09 <- fromJSON("ranking-090117.json")
+ggplot(ranking.09[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ```
 
 De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 11, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. 
