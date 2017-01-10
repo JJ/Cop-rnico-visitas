@@ -1,10 +1,12 @@
 ---
-title: "Copérnico famoso por un día"
+title: Evolución de la notoriedad de la página de Nicolás Copérnico en la Wikipedia
+  española
 author: "JJ Merelo"
 date: "9 de enero de 2017"
-output: html_document
+output: pdf_document
+bibliography: refs.bib
 abstract: |
-  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido una cantidad considerable de atención en estos días. Veamos exactamente cuanta. 
+  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido una cantidad considerable de atención en estos días. Veamos exactamente cuanta y cómo ha evolucionado a lo largo del tiempo.
 ---
 
 #Introducción
@@ -28,14 +30,37 @@ datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     visitas=c(datos.2016$V1,datos.2017$V1))
 ```
 
+
 A continuación trazamos los datos de cada día, por año. 
 
 ```{r imagen}
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
+# Evolución en el ránking de páginas visitadas
+
+La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
+~~~
+curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/07 | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' > ranking-070117.json
+~~~
+que genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí.
+
+En el *script* siguiente lo leemos y lo trazamos para dos días seguidos.
+
+```{r ranking}
+library(jsonlite)
+ranking.07 <- fromJSON("ranking-070117.json")
+ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
+ranking.08 <- fromJSON("ranking-080117.json")
+ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
+```
+
+De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 11, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. 
+
 #Conclusión
 
 Las visitas a día equivalente se han multiplicado por 15, más o menos. Será interesante ver cómo decaen de aquí en adelante.
 
-Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre.
+Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre. Este artículo extiende [@merelo17] añadiendo la evolución temporal y también la posición en los ránkings. 
+
+## Bibliografía
