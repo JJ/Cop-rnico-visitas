@@ -1,23 +1,23 @@
 ---
-title: Evolución de la notoriedad de la página de Nicolás Copérnico en la Wikipedia
-  española
+title: Análisis de la duración de la fama de la página de Nicolás Copérnico en la
+  Wikipedia española
 author: "JJ Merelo"
-date: "9 de enero de 2017"
-output: html_document
+date: "10 de enero de 2017"
+output: pdf_document
 bibliography: refs.bib
 abstract: |
-  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido una cantidad considerable de atención en estos días. Veamos exactamente cuanta y cómo ha evolucionado a lo largo del tiempo.
+  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido    una cantidad considerable de atención en estos días, pero fue decayendo rápidamente en los días siguientes hasta desaparecer   de los primeros puestos a los tres días. Veamos exactamente cuanta y cómo ha evolucionado a lo largo del tiempo.
 ---
 
 #Introducción
 
-La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante este *script*:
+La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante este *script*, que, como el resto de los datos y programas, son software libre y se pueden descargar de la página que figura en las conclusiones. 
 
 ~~~
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2017010100/2017010900 | jq '.items[] | .views ' > 2017.dat
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2016010100/2016010900 | jq '.items[] | .views ' > 2016.dat
 ~~~
-que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa: las visitas, y lo vertimos en sendos ficheros de datos.
+que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos.
 
 Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
 ```{r setup}
@@ -37,32 +37,40 @@ A continuación trazamos los datos de cada día, por año.
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
+Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho más rápidamente el tercero. Vamos a ver la relación de visitas entre el año pasado y el corriente
+
+```{r ratio}
+ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
+ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
+```
+
+De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad.   
 # Evolución en el ránking de páginas visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
 ~~~
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/07 | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' > ranking-070117.json
 ~~~
-que genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí.
+que genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí. Esto se repite para el resto de los días y a continuación el fichero se filtra dejando solamente los artículos de la Wikipedia y eliminando páginas especiales como la entrada o la página de búsqueda. 
 
-En el *script* siguiente lo leemos y lo trazamos para dos días seguidos.
+En el *script* siguiente lo leemos y lo trazamos para dos días seguidos comenzando en el día 7, además, filtramos las páginas *especiales* de la wikipedia dejando solamente los artículos. 
 
 ```{r ranking}
 library(jsonlite)
-ranking.07 <- fromJSON("ranking-070117.json")
+ranking.07 <- fromJSON("ranking-070117-filtrado.json")
 ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
-ranking.08 <- fromJSON("ranking-080117.json")
+ranking.08 <- fromJSON("ranking-080117-filtrado.json")
 ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
-ranking.09 <- fromJSON("ranking-090117.json")
-ggplot(ranking.09[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ```
 
-De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 11, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. 
+De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 4, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. Al día siguiente, día 9, el artículo de Copérnico cayó hasta el puesto 49 del ránking filtrado. 
 
 #Conclusión
 
-Las visitas a día equivalente se han multiplicado por 15, más o menos. Será interesante ver cómo decaen de aquí en adelante.
+Las visitas a día equivalente se han multiplicado por 20, más o menos, el primer día. Los días siguientes se va perdiendo interés.
 
-Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre. Este artículo extiende [@merelo17] añadiendo la evolución temporal y también la posición en los ránkings. 
+Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre. Este artículo extiende [@merelo17] y [@merelo17:2] añadiendo los datos para el tercer dia, filtrando los rankings de forma que solamente aparezcan los datos de páginas y añadiendo un gráfico con la diferencia de visitas entre el año anterior y este. 
+
+Como trabajo por hacer, habría que continuar viendo la evolución temporal y también encontrac correlación con otras páginas. Sería interesante ver si esta evolución se corresponde también con la de otras páginas cuya notoriedad ha aparecido en las redes sociales.
 
 ## Bibliografía
