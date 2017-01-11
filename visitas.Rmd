@@ -1,6 +1,5 @@
 ---
-title: Análisis de la duración de la fama de la página de Nicolás Copérnico en la
-  Wikipedia española
+title: Efecto Twitter y su reflejo en la Wikipedia: evolución temporal.
 author: "JJ Merelo"
 date: "10 de enero de 2017"
 output: html_document
@@ -17,7 +16,7 @@ La wikipedia, a través de un interfaz, permite acceder a las visitas de cada un
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2017010100/2017011000 | jq '.items[] | .views ' > 2017.dat
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2016010100/2016011000 | jq '.items[] | .views ' > 2016.dat
 ~~~
-que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos.
+que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos. De la misma forma se descargan las visitas de todas las páginas a las que nos vamos a referir en este artículo.
 
 Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
 ```{r setup}
