@@ -1,7 +1,7 @@
 ---
 title: Evolución temporal del efecto Twitter en la Wikipedia.
 author: "JJ Merelo"
-date: "11 de enero de 2017"
+date: "12 de enero de 2017"
 output: html_document
 bibliography: refs.bib
 abstract: |
@@ -125,7 +125,7 @@ De no estar entre las 1000 páginas con más visitas el día anterior, ha entrad
 
 Las visitas a día equivalente se han multiplicado por 20, más o menos, el primer día. Los días siguientes se va perdiendo interés.
 
-Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre. Este artículo extiende [@merelo17] y [@merelo17:2] añadiendo los datos para el tercer dia, filtrando los rankings de forma que solamente aparezcan los datos de páginas y añadiendo un gráfico con la diferencia de visitas entre el año anterior y este. 
+Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre.
 
 Como trabajo por hacer, habría que continuar viendo la evolución temporal y también encontrac correlación con otras páginas. Sería interesante ver si esta evolución se corresponde también con la de otras páginas cuya notoriedad ha aparecido en las redes sociales.
 
