@@ -31,6 +31,22 @@ curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedi
 
 que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos. De la misma forma se descargan las visitas de todas las páginas a las que nos vamos a referir en este artículo.
 
+Se usan scripts similares para obtener las visitas del resto de las páginas referenciadas. Por otro lado, para extraer el ránking de las mil páginas más visitadas, se usa el siguiente script:
+
+    curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/11 
+        | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' 
+            > ranking-110117.json
+
+que extrae el puesto dentro del ránking y el número de visitas, aparte del título del artículo en sí. A continuación, se filtra para dejar sólo los artículos en el ránking, eliminando páginas especiales; también se recalcula el ránking. Finalmente, se procesan también estos ránkings para calcular la evolución de la posición de una página a lo largo de los días con :
+
+    jq '.[] | select(.articulo=="Nicolás_Copérnico") | .puesto' ranking-*-filtrado.json > puesto.dat
+
+que guarda en el fichero `puesto.dat` un número con la posición que ocupa la página determinada cada día. 
+
+Los resultados de estos datos los mostramos a continuación:
+
+## Visitas de la página Nicolás Copérnico y otras páginas asociadas
+
 Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
 ```{r setup}
 library(ggplot2)
@@ -56,8 +72,33 @@ ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1
 ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
 ```
 
-De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad.   
+De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad. 
 
+Es curioso ver también cómo evolucionan algunas páginas asociadas, en concreto la del principal logro de Copérnico, la teoría heliocéntrica, que fue motivo de la interpelación del día siguiente en el debate de televisión
+
+```{r helio}
+hc.2016 <- read.table('datos/visitas-teoría-heliocéntrica-2016.dat')
+hc.2017 <- read.table('datos/visitas-teoría-heliocéntrica-2017.dat')
+hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
+                    year=c(rep('2016',nrow(hc.2016)),rep('2017',nrow(hc.2017))),
+                    visitas=c(hc.2016$V1,hc.2017$V1))
+ggplot(hc.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+```
+
+El número de visitas tiene otra escala y por tanto hay más fluctuaciones a lo largo del día. Sin embargo, como en el caso anterior, aunque inicialmente las visitas eran similares o incluso inferiores, en 5 días prácticamente se ha vuelto al valor inicial, con una variación muy pequeña. 
+
+Pero lo que también cambia es la correlación entre el número de personas que visitan una web y los que visitan otra. Lo vemos en el siguiente gráfico.
+
+```{r ratiohc}
+ratio.hc.2016 <- datos.2016/hc.2016
+ratio.hc.2017 <- datos.2017/hc.2017
+hc.ratios <- data.frame( dia=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
+                    year=c(rep('2016',nrow(ratio.hc.2016)),rep('2017',nrow(ratio.hc.2017))),
+                    visitas=c(ratio.hc.2016$V1,ratio.hc.2017$V1))
+ggplot(hc.ratios,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+```
+
+En el año 2016 hay una tasa ligeramente inferior a 2, es decir, que la página de la teoría heliocéntrica recibe más o menos la mitad de visitas que la de Copérnico, con no demasiadas variaciones; cabe suponer que hay más interés por el personaje que por su aportación, pero tampoco demasiado. Sin embargo, cuando el asunto "Copérnico-Ojeda" estalla, de repente las personas se interesan por el personaje, sin preocuparse demasiado por comprender cuál fue su aportación a la ciencia. Cabe señalar que no sabemos si se tratan de las mismas personas porque no se sabe el camino que siguen en la Wikipedia, aunque es razonable suponer que un porcentaje considerable de las personas que visiten cualquiera de las dos páginas acabará siguiendo los enlaces para ir a la otra. El enlace a la teoría aparece en las primeras líneas de la página de Copérnico y ese el décimo tercer enlace desde el principio de la página, mientras que Copérnico aparece en el segundo párrafo de la página de la teoría siendo más o menos también el mismo número de enlace, el décimo en este momento. 
 # Evolución en el ránking de páginas visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
