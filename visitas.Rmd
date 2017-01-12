@@ -1,7 +1,7 @@
 ---
-title: Efecto Twitter y su reflejo en la Wikipedia: evolución temporal.
+title: Evolución temporal del efecto Twitter en la Wikipedia.
 author: "JJ Merelo"
-date: "10 de enero de 2017"
+date: "11 de enero de 2017"
 output: html_document
 bibliography: refs.bib
 abstract: |
@@ -10,20 +10,33 @@ abstract: |
 
 #Introducción
 
+Desde los años 90 se conoce como "Efecto Slashdot" [@adler1999slashdot,@halavais2001slashdot] al aumento en visitas que experimentan los sitios web cuando son referenciados por publicaciones como Slashdot, una de las más visitadas en el área de tecnología y especialmente programación. Se trata de picos de visitas, dirigidos esencialmente a una dirección web, que en muchos casos y en épocas más oscuras en las que no había redes de publicación de contenidos tenían un efecto muy similar a un ataque de denegación de servicio. En España nos hemor referido también repetidamente al *Efecto Menéame* [@dans2008anatomia], por el efecto provocado por este agregador de noticias e incluso, con anterioridad y en mucha menor medida, el "Efecto Barrapunto" [@blanco2009blog] por la web Barrapunto.com, un agregador de noticias tecnológicas.
+
+Que sepamos, hasta el momento no ha habido demasiados estudios que analicen un efecto similar de las redes sociales, quizás porque ya no provocan ese efecto en los sitios web; mucho menos el efecto que tienen en la búsqueda o *ocupación mental* de conceptos. También es cierto que la analítica web es hoy en día mucho más complicada y que, en general, no se revelan públicamente las visitas a un sitio. Hoy en día interesa más analizar los *trending topic* en redes sociales. Pero no se ha estudiado qué efecto tienen estos *trending topic* en la ocupación mental del público reflejada en su comportamiento de navegación en Internet.
+
+A principios de 2017, una anécdota en una cabalgata de Reyes Magos de Madrid, en la que un locutor de un video se refirió a un personaje como Colon y este contestó "Soy Copérnico", como [se narra en Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html), provocó un aluvión de memes, extendidos a días posteriores cuando un periodista y un político se enzarzaron en un programa de televisión sobre qué había hecho realmente Copérnico. 
+
+En una serie de artículos [@merelo17, @merelo17:2, @Merelo2017:figshare] que marca la evolución temporal de esta ocupación mental o *mindshare* a través de las visitas a la página de la Wikipedia de Copérnico [@wiki:Copernico] hemos venido analizando el cambio en el número de visitas sobre todo buscando cuál es la duración temporal de este fenómeno a través de los cambios diarios. En este artículo, que cierra la serie, esperamos buscar las causas de esa duración, sobre todo comparándola con otros *fenómenos* de visitas a la Wikipedia que han sucedido de forma más o menos simultánea.
+
+El resto del trabajo se organiza de esta forma: A continuación se presenta la metodología que se ha seguido para capturar y analizar los datos; a continuación se analizan las visitas de la página de la Wikipedia y otras páginas relacionadas, así como la evolución en su ránking de páginas vistas en la Wikipedia. Finalmente, tratamos de sacar una serie de conclusiones.
+
+# Metodología
+
 La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante este *script*, que, como el resto de los datos y programas, son software libre y se pueden descargar de la página que figura en las conclusiones. 
 
 ~~~
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2017010100/2017011000 | jq '.items[] | .views ' > 2017.dat
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2016010100/2016011000 | jq '.items[] | .views ' > 2016.dat
 ~~~
+
 que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo destrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos. De la misma forma se descargan las visitas de todas las páginas a las que nos vamos a referir en este artículo.
 
 Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
 ```{r setup}
 library(ggplot2)
 library(ggthemes)
-datos.2016 <- read.table('2016.dat')
-datos.2017 <- read.table('2017.dat')
+datos.2016 <- read.table('datos/2016.dat')
+datos.2017 <- read.table('datos/2017.dat')
 datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
                     visitas=c(datos.2016$V1,datos.2017$V1))
@@ -44,21 +57,24 @@ ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
 ```
 
 De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad.   
+
 # Evolución en el ránking de páginas visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
+
 ~~~
 curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/07 | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' > ranking-070117.json
 ~~~
+
 que genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí. Esto se repite para el resto de los días y a continuación el fichero se filtra dejando solamente los artículos de la Wikipedia y eliminando páginas especiales como la entrada o la página de búsqueda. 
 
 En el *script* siguiente lo leemos y lo trazamos para dos días seguidos comenzando en el día 7, además, filtramos las páginas *especiales* de la wikipedia dejando solamente los artículos. 
 
 ```{r ranking}
 library(jsonlite)
-ranking.07 <- fromJSON("ranking-070117-filtrado.json")
+ranking.07 <- fromJSON("datos/ranking-070117-filtrado.json")
 ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
-ranking.08 <- fromJSON("ranking-080117-filtrado.json")
+ranking.08 <- fromJSON("datos/ranking-080117-filtrado.json")
 ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ```
 
