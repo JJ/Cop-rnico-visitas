@@ -102,6 +102,19 @@ ggplot(hc.ratios,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tuf
 
 En el año 2016 hay una tasa ligeramente inferior a 2, es decir, que la página de la teoría heliocéntrica recibe más o menos la mitad de visitas que la de Copérnico, con no demasiadas variaciones; cabe suponer que hay más interés por el personaje que por su aportación, pero tampoco demasiado. Sin embargo, cuando el asunto "Copérnico-Ojeda" estalla, de repente las personas se interesan por el personaje, sin preocuparse demasiado por comprender cuál fue su aportación a la ciencia. Cabe señalar que no sabemos si se tratan de las mismas personas porque no se sabe el camino que siguen en la Wikipedia, aunque es razonable suponer que un porcentaje considerable de las personas que visiten cualquiera de las dos páginas acabará siguiendo los enlaces para ir a la otra. El enlace a la teoría aparece en las primeras líneas de la página de Copérnico y ese el décimo tercer enlace desde el principio de la página, mientras que Copérnico aparece en el segundo párrafo de la página de la teoría siendo más o menos también el mismo número de enlace, el décimo en este momento. 
 
+Veamos también, como control, otra página, la de Galileo Galilei, que fue quien difundió la teoría heliocéntrica. No aparece de ninguna manera en el incidente pero puede ser interesante para ver el interés que tiene en este tipo de páginas y si hay una derivación de interés de una a otra. 
+
+```{r galileo}
+galileo.2016 <- read.table('datos/2016-galileo.dat')
+galileo.2017 <- read.table('datos/2017-galileo.dat')
+galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
+                    year=c(rep('2016',nrow(galileo.2016)),rep('2017',nrow(galileo.2017))),
+                    visitas=c(galileo.2016$V1,galileo.2017$V1))
+ggplot(galileo.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+```
+
+Aparte de la curiosidad de cómo evolucionan de la misma forma, con una caída considerable el día 7, no hay ninguna tendencia clara ni cabe suponer que las páginas con este tipo de contenido hubieran tenido, un interés creciente del año pasado a este y, de hecho, el día 12 ya hay menos visitas en la página de Galileo que el año anterior. Aunque puede que sí haya habido una cierta transferencia de interés y por tanto de visitas de una a otra, ya que de hecho la de Galileo está enlazadas desde la de Copérnico, el hecho de que no haya cambios en el mismo sentido que la de Copérnico descarta un interés súbito en la ciencia del renacimiento y la teoría heliocéntrica como una causa del aumento de visitas que habrá que atribuir, por tanto, al incidente del que estamos tratando. 
+
 # Evolución en el ránking de páginas más visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
