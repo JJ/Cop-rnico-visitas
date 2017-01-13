@@ -1,7 +1,7 @@
 ---
 title: Evolución temporal del efecto Twitter en la Wikipedia.
 author: "JJ Merelo"
-date: "12 de enero de 2017"
+date: "13 de enero de 2017"
 output: html_document
 bibliography: refs.bib
 abstract: |
@@ -65,14 +65,16 @@ A continuación trazamos los datos de cada día, por año.
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho más rápidamente el tercero. Vamos a ver la relación de visitas entre el año pasado y el corriente
+Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho más rápidamente el tercero; sin embargo, a partir del cuarto día el descenso es mucho más suave. 
+
+Vamos a ver la relación de visitas entre el año pasado y el corriente
 
 ```{r ratio}
 ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
 ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
 ```
 
-De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad. 
+De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad. Al quinto día la tasa es de un 50% más de visitas; ligeramente por encima del año anterior en la misma fecha, teniendo en cuenta además que el año anterior la tendencia era a un aumento paulatino de las visitas. 
 
 Es curioso ver también cómo evolucionan algunas páginas asociadas, en concreto la del principal logro de Copérnico, la teoría heliocéntrica, que fue motivo de la interpelación del día siguiente en el debate de televisión
 
@@ -85,7 +87,7 @@ hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
 ggplot(hc.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-El número de visitas tiene otra escala y por tanto hay más fluctuaciones a lo largo del día. Sin embargo, como en el caso anterior, aunque inicialmente las visitas eran similares o incluso inferiores, en 5 días prácticamente se ha vuelto al valor inicial, con una variación muy pequeña. 
+El número de visitas tiene otra escala y por tanto hay más fluctuaciones a lo largo del día. Sin embargo, como en el caso anterior, aunque inicialmente las visitas eran similares o incluso inferiores, en 5 días prácticamente se ha vuelto al valor inicial, con una variación muy pequeña. En cinco días vuelve a tener *menos* visitas que el año pasado, la misma situación que el día anterior al incidente. 
 
 Pero lo que también cambia es la correlación entre el número de personas que visitan una web y los que visitan otra. Lo vemos en el siguiente gráfico.
 
@@ -99,12 +101,15 @@ ggplot(hc.ratios,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tuf
 ```
 
 En el año 2016 hay una tasa ligeramente inferior a 2, es decir, que la página de la teoría heliocéntrica recibe más o menos la mitad de visitas que la de Copérnico, con no demasiadas variaciones; cabe suponer que hay más interés por el personaje que por su aportación, pero tampoco demasiado. Sin embargo, cuando el asunto "Copérnico-Ojeda" estalla, de repente las personas se interesan por el personaje, sin preocuparse demasiado por comprender cuál fue su aportación a la ciencia. Cabe señalar que no sabemos si se tratan de las mismas personas porque no se sabe el camino que siguen en la Wikipedia, aunque es razonable suponer que un porcentaje considerable de las personas que visiten cualquiera de las dos páginas acabará siguiendo los enlaces para ir a la otra. El enlace a la teoría aparece en las primeras líneas de la página de Copérnico y ese el décimo tercer enlace desde el principio de la página, mientras que Copérnico aparece en el segundo párrafo de la página de la teoría siendo más o menos también el mismo número de enlace, el décimo en este momento. 
-# Evolución en el ránking de páginas visitadas
+
+# Evolución en el ránking de páginas más visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
 
 ~~~
-curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/07 | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' > ranking-070117.json
+curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/07 
+    | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' 
+        > ranking-070117.json
 ~~~
 
 que genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí. Esto se repite para el resto de los días y a continuación el fichero se filtra dejando solamente los artículos de la Wikipedia y eliminando páginas especiales como la entrada o la página de búsqueda. 
@@ -119,7 +124,7 @@ ranking.08 <- fromJSON("datos/ranking-080117-filtrado.json")
 ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ```
 
-De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 4, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. Al día siguiente, día 9, el artículo de Copérnico cayó hasta el puesto 49 del ránking filtrado. 
+De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 4, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. Al día siguiente, día 9, el artículo de Copérnico cayó hasta el puesto 49 del ránking filtrado. A partir de ahí bajó al 139, de ahí 334 y a continuación desapareció de las 1000 páginas más vistas de la Wikipedia. La página sobre la teoría heliocéntrica sólo estuvo los dos primeros días, en los puestos 215 y 393, para desaparecer al día siguiente. 
 
 #Conclusión
 
