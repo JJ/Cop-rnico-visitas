@@ -65,7 +65,7 @@ A continuación trazamos los datos de cada día, por año.
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho más rápidamente el tercero; sin embargo, a partir del cuarto día el descenso es mucho más suave. 
+Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho más rápidamente el tercero; sin embargo, a partir del cuarto día el descenso es mucho más suave, hasta llegar a tener más o menos los mismos datos una semana después. 
 
 Vamos a ver la relación de visitas entre el año pasado y el corriente
 
