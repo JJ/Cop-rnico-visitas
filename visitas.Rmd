@@ -1,7 +1,7 @@
 ---
 title: Evolución temporal del efecto Twitter en la Wikipedia.
 author: "JJ Merelo"
-date: "13 de enero de 2017"
+date: "14 de enero de 2017"
 output: html_document
 bibliography: refs.bib
 abstract: |
