@@ -5,7 +5,7 @@ date: "14 de enero de 2017"
 output: html_document
 bibliography: refs.bib
 abstract: |
-  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido    una cantidad considerable de atención en estos días, pero fue decayendo rápidamente en los días siguientes hasta desaparecer   de los primeros puestos a los tres días. Veamos exactamente cuanta y cómo ha evolucionado a lo largo del tiempo.
+  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido    una cantidad considerable de atención en estos días, pero fue decayendo rápidamente en los días siguientes hasta desaparecer   de los primeros puestos a los tres días. Veamos exactamente cuanta y cómo ha evolucionado a lo largo del tiempo. Tambien compararemos con otros casos de notoriedad recientes, concluyendo que la duracion de una semana se repite, con mucha aproximacion, para los documentos examinados. 
 ---
 
 #Introducción
@@ -115,6 +115,8 @@ ggplot(galileo.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme
 
 Aparte de la curiosidad de cómo evolucionan de la misma forma, con una caída considerable el día 7, no hay ninguna tendencia clara ni cabe suponer que las páginas con este tipo de contenido hubieran tenido, un interés creciente del año pasado a este y, de hecho, el día 12 ya hay menos visitas en la página de Galileo que el año anterior. Aunque puede que sí haya habido una cierta transferencia de interés y por tanto de visitas de una a otra, ya que de hecho la de Galileo está enlazadas desde la de Copérnico, el hecho de que no haya cambios en el mismo sentido que la de Copérnico descarta un interés súbito en la ciencia del renacimiento y la teoría heliocéntrica como una causa del aumento de visitas que habrá que atribuir, por tanto, al incidente del que estamos tratando. 
 
+Por otro lado, examinamos tambien las visitas de la página de Meryl Streep, cuyo discurso durante los Globos de Oro tuvo también una notoriedad considerable, igual que la reacción posterior del presidente electo. Se trata, en este caso, de una página que, de por sí, tiene bastantes visitas, como se ve a continuación.
+
 ```{r meryl}
 meryl.2016 <- read.table('datos/2016-meryl.dat')
 meryl.2017 <- read.table('datos/2017-meryl.dat')
@@ -123,6 +125,8 @@ meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
                     visitas=c(meryl.2016$V1,meryl.2017$V1))
 ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
+
+Por otro lado, la gráfica tiene el aspecto, bastante similar, de *gorro de bruja*, con un pico considerable y un descenso del número de visitas más gradual a lo largo de aproximadamente una semana. Aunque a la fecha de hoy todavía no ha vuelto al número de visitas original, cabe suponer que sucederá más o menos en el mismo plazo que en la página que nos ocupa, lo que establece en 7 días, con relativa seguridad, la duración del *efecto Twitter* en la notoriedad de una figura pública reflejada en las visitas a las páginas de la Wikipedia.
 
 # Evolución en el ránking de páginas más visitadas
 

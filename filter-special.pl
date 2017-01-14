@@ -17,7 +17,7 @@ my $data = decode_json $file;
 my @output_data;
 
 for my $d ( @$data ) {
-  push @output_data, $d if $d->{'articulo'} !~ /(Especial|Wikipedia)/;
+  push @output_data, $d if $d->{'articulo'} !~ /(Especial|Wikipedia|Special)/;
 }
 
 for (my $j = 0; $j <= $#output_data; $j ++ ) {
