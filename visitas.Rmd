@@ -123,6 +123,7 @@ meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
                     visitas=c(meryl.2016$V1,meryl.2017$V1))
 ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
+
 # Evolución en el ránking de páginas más visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
