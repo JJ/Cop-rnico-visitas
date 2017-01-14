@@ -152,9 +152,20 @@ ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ g
 
 De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 4, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. Al día siguiente, día 9, el artículo de Copérnico cayó hasta el puesto 49 del ránking filtrado. A partir de ahí bajó al 139, de ahí 334 y a continuación desapareció de las 1000 páginas más vistas de la Wikipedia. La página sobre la teoría heliocéntrica sólo estuvo los dos primeros días, en los puestos 215 y 393, para desaparecer al día siguiente. 
 
+Las otras páginas, como es natural, tienen también su explicación, pero cabe destacar al relativamente desconocido Sandford Fleming que alcanzó tal puesto por [ser el objeto del Google Doodle del día](https://www.google.com/doodles/sandford-flemings-190th-birthday).
+
 #Conclusión
 
-Las visitas a día equivalente se han multiplicado por 20, más o menos, el primer día. Los días siguientes se va perdiendo interés.
+Las visitas a día equivalente se han multiplicado por 20, más o menos, el primer día. Los días siguientes se va perdiendo interés, alcanzando el aumento en el número de visitas más o menos una semana, que se puede considerar, por tanto, la duración estándar de la vida de un *meme*, al menos en estas fechas y en este país y para memes de este tipo, con un sólo nombre o figura identificable. Los datos obtenidos tanto para Copérnico como para otros incidentes similares, como el de Meryl Streep, parecen confirmar esos datos, que, evidentemente sólo tendrán valided estadística universal cuando se reproduzcan los resultados para muchos más casos similares. 
+
+Estos memes, además, no suelen tener demasiada *profundidad*, quedándose relegados a una sola página e incluso a los primeros párrafos de la misma. No parece que haya extensión del interés a otros conceptos o personas relacionados con el mismo. En cuanto a la importancia global en la *ocupación mental* del público de Internet, depende en gran medida del interés inicial por el sujeto. Las visitas a la página de Meryl Streep, por ejemplo, alcanzan un nivel mucho mayor y su puesto en el ránking se mantiene durante más tiempo, también porque, previamente, ya estaba entre las 1000 páginas más vistas de la Wikipedia española. 
+
+```{r meryl-cop}
+meryl.cop.datos <- data.frame( dia=c(1:nrow(meryl.2017),1:nrow(datos.2017)),
+                      year=c(rep('Meryl Streep',nrow(meryl.2017)),rep('Nicolás Copérnico',nrow(datos.2017))),
+                    visitas=c(meryl.2017$V1,datos.2017$V1))
+ggplot(meryl.cop.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+```
 
 Todos los datos y ficheros necesarios están en http://github.com/JJ/Cop-rnico-visitas, con una licencia libre.
 
