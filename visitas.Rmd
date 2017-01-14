@@ -1,11 +1,16 @@
 ---
-title: Evolución temporal del efecto Twitter en la Wikipedia.
+title: "Evolución temporal del efecto Twitter en las visitas a una página de la Wikipedia."
 author: "JJ Merelo"
 date: "14 de enero de 2017"
-output: html_document
+output: pdf_document
 bibliography: refs.bib
-abstract: |
-  A consecuencia de un vídeo que se ha hecho viral en estos días y en los que se menciona a Copérnico, la figura ha recibido    una cantidad considerable de atención en estos días, pero fue decayendo rápidamente en los días siguientes hasta desaparecer   de los primeros puestos a los tres días. Veamos exactamente cuanta y cómo ha evolucionado a lo largo del tiempo. También compararemos con otros casos de notoriedad recientes, concluyendo que la duración de una semana se repite, con mucha aproximación, para los documentos examinados. 
+abstract: "A consecuencia de un vídeo que se ha hecho viral en estos días y en los
+  que se menciona a Copérnico, la figura ha recibido    una cantidad considerable
+  de atención en estos días, pero fue decayendo rápidamente en los días siguientes
+  hasta desaparecer   de los primeros puestos a los tres días. Veamos exactamente
+  cuanta y cómo ha evolucionado a lo largo del tiempo. También compararemos con otros
+  casos de notoriedad recientes, concluyendo que la duración de una semana se repite,
+  con mucha aproximación, para los documentos examinados. \n"
 ---
 
 #Introducción
@@ -22,33 +27,16 @@ El resto del trabajo se organiza de esta forma: A continuación se presenta la m
 
 # Metodología
 
-La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante este *script*, que, como el resto de los datos y programas, son software libre y se pueden descargar de la página que figura en las conclusiones. 
+La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante un *script*, que, como el resto de los datos y programas, son software libre y se pueden descargar de la página que figura a continuación de las conclusiones y se ha mostrado también en [@Merelo2017:figshare]. El script usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo detrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos. De la misma forma se descargan las visitas de todas las páginas a las que nos vamos a referir en este artículo.
 
-~~~
-curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2017010100/2017011000 | jq '.items[] | .views ' > 2017.dat
-curl https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/all-agents/Nicol%C3%A1s_Cop%C3%A9rnico/daily/2016010100/2016011000 | jq '.items[] | .views ' > 2016.dat
-~~~
-
-que usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo detrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos. De la misma forma se descargan las visitas de todas las páginas a las que nos vamos a referir en este artículo.
-
-Se usan scripts similares para obtener las visitas del resto de las páginas referenciadas. Por otro lado, para extraer el ránking de las mil páginas más visitadas, se usa el siguiente script:
-
-    curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/11 
-        | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' 
-            > ranking-110117.json
-
-que extrae el puesto dentro del ránking y el número de visitas, aparte del título del artículo en sí. A continuación, se filtra para dejar sólo los artículos en el ránking, eliminando páginas especiales; también se recalcula el ránking. Finalmente, se procesan también estos ránkings para calcular la evolución de la posición de una página a lo largo de los días con :
-
-    jq '.[] | select(.articulo=="Nicolás_Copérnico") | .puesto' ranking-*-filtrado.json > puesto.dat
-
-que guarda en el fichero `puesto.dat` un número con la posición que ocupa la página determinada cada día. 
+Se usan scripts similares para obtener las visitas del resto de las páginas referenciadas. Por otro lado, para extraer el ránking de las mil páginas más visitadas, se usa un script que extrae el puesto dentro del ránking y el número de visitas, aparte del título del artículo en sí. A continuación, se filtra para dejar sólo los artículos en el ránking, eliminando páginas especiales; también se recalcula el ránking. Finalmente, se procesan también estos ránkings para calcular la evolución de la posición de una página a lo largo de los días, guardando en en un fichero un número con la posición que ocupa la página determinada cada día. 
 
 Los resultados de estos datos los mostramos a continuación:
 
 ## Visitas de la página Nicolás Copérnico y otras páginas asociadas
 
 Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
-```{r setup}
+```{r setup,echo=FALSE}
 library(ggplot2)
 library(ggthemes)
 datos.2016 <- read.table('datos/2016.dat')
@@ -61,7 +49,7 @@ datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
 
 A continuación trazamos los datos de cada día, por año. 
 
-```{r imagen}
+```{r imagen,echo=FALSE}
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
@@ -69,7 +57,7 @@ Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho 
 
 Vamos a ver la relación de visitas entre el año pasado y el corriente
 
-```{r ratio}
+```{r ratio,echo=FALSE}
 ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
 ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
 ```
@@ -78,7 +66,7 @@ De tener un número de visitas parecido, aunque ligeramente superior, se pasa a 
 
 Es curioso ver también cómo evolucionan algunas páginas asociadas, en concreto la del principal logro de Copérnico, la teoría heliocéntrica, que fue motivo de la interpelación del día siguiente en el debate de televisión
 
-```{r helio}
+```{r helio,echo=FALSE}
 hc.2016 <- read.table('datos/visitas-teoría-heliocéntrica-2016.dat')
 hc.2017 <- read.table('datos/visitas-teoría-heliocéntrica-2017.dat')
 hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
@@ -91,7 +79,7 @@ El número de visitas tiene otra escala y por tanto hay más fluctuaciones a lo 
 
 Pero lo que también cambia es la correlación entre el número de personas que visitan una web y los que visitan otra. Lo vemos en el siguiente gráfico.
 
-```{r ratiohc}
+```{r ratiohc,echo=FALSE}
 ratio.hc.2016 <- datos.2016/hc.2016
 ratio.hc.2017 <- datos.2017/hc.2017
 hc.ratios <- data.frame( dia=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
@@ -104,7 +92,7 @@ En el año 2016 hay una tasa ligeramente inferior a 2, es decir, que la página 
 
 Veamos también, como control, otra página, la de Galileo Galilei, que fue quien difundió la teoría heliocéntrica. No aparece de ninguna manera en el incidente pero puede ser interesante para ver el interés que tiene en este tipo de páginas y si hay una derivación de interés de una a otra. 
 
-```{r galileo}
+```{r galileo,echo=FALSE}
 galileo.2016 <- read.table('datos/2016-galileo.dat')
 galileo.2017 <- read.table('datos/2017-galileo.dat')
 galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
@@ -117,7 +105,7 @@ Aparte de la curiosidad de cómo evolucionan de la misma forma, con una caída c
 
 Por otro lado, examinamos también las visitas de la página de Meryl Streep, cuyo discurso durante los Globos de Oro tuvo también una notoriedad considerable, igual que la reacción posterior del presidente electo. Se trata, en este caso, de una página que, de por sí, tiene bastantes visitas, como se ve a continuación.
 
-```{r meryl}
+```{r meryl,echo=FALSE}
 meryl.2016 <- read.table('datos/2016-meryl.dat')
 meryl.2017 <- read.table('datos/2017-meryl.dat')
 meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
@@ -130,19 +118,11 @@ Por otro lado, la gráfica tiene el aspecto, bastante similar, de *gorro de bruj
 
 # Evolución en el ránking de páginas más visitadas
 
-La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
-
-~~~
-curl https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/2017/01/07 
-    | jq '[ .items[] | .articles[] |{articulo:.article,puesto: .rank,visitas:.views} ]' 
-        > ranking-070117.json
-~~~
-
-que genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí. Esto se repite para el resto de los días y a continuación el fichero se filtra dejando solamente los artículos de la Wikipedia y eliminando páginas especiales como la entrada o la página de búsqueda. 
+La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, extraídas con un *script* que también está en el repositorio y se muestra en [@Merelo2017:figshare]; este *script* genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí. Esto se repite para el resto de los días y a continuación el fichero se filtra dejando solamente los artículos de la Wikipedia y eliminando páginas especiales como la entrada o la página de búsqueda. 
 
 En el *script* siguiente lo leemos y lo trazamos para dos días seguidos comenzando en el día 7, además, filtramos las páginas *especiales* de la wikipedia dejando solamente los artículos. 
 
-```{r ranking}
+```{r ranking,echo=FALSE}
 library(jsonlite)
 ranking.07 <- fromJSON("datos/ranking-070117-filtrado.json")
 ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
@@ -160,7 +140,7 @@ Las visitas a día equivalente se han multiplicado por 20, más o menos, el prim
 
 Estos memes, además, no suelen tener demasiada *profundidad*, quedándose relegados a una sola página e incluso a los primeros párrafos de la misma. No parece que haya extensión del interés a otros conceptos o personas relacionados con el mismo. En cuanto a la importancia global en la *ocupación mental* del público de Internet, depende en gran medida del interés inicial por el sujeto. Las visitas a la página de Meryl Streep, por ejemplo, alcanzan un nivel mucho mayor y su puesto en el ránking se mantiene durante más tiempo, también porque, previamente, ya estaba entre las 1000 páginas más vistas de la Wikipedia española. 
 
-```{r meryl-cop}
+```{r meryl-cop,echo=FALSE}
 meryl.cop.datos <- data.frame( dia=c(1:nrow(meryl.2017),1:nrow(datos.2017)),
                       year=c(rep('Meryl Streep',nrow(meryl.2017)),rep('Nicolás Copérnico',nrow(datos.2017))),
                     visitas=c(meryl.2017$V1,datos.2017$V1))
@@ -173,7 +153,5 @@ Esto también tiene en cuenta el hecho de que el *incidente Ojeda-Copérnico* ha
 ## Nota
 
 Todos los datos y ficheros necesarios se encuentran en http://github.com/JJ/Cop-rnico-visitas, y se pueden usar con una licencia libre. Se agradece a quien los use que haga referencia a esta publicación. 
-
-
 
 ## Bibliografía
