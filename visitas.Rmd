@@ -115,6 +115,14 @@ ggplot(galileo.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme
 
 Aparte de la curiosidad de cómo evolucionan de la misma forma, con una caída considerable el día 7, no hay ninguna tendencia clara ni cabe suponer que las páginas con este tipo de contenido hubieran tenido, un interés creciente del año pasado a este y, de hecho, el día 12 ya hay menos visitas en la página de Galileo que el año anterior. Aunque puede que sí haya habido una cierta transferencia de interés y por tanto de visitas de una a otra, ya que de hecho la de Galileo está enlazadas desde la de Copérnico, el hecho de que no haya cambios en el mismo sentido que la de Copérnico descarta un interés súbito en la ciencia del renacimiento y la teoría heliocéntrica como una causa del aumento de visitas que habrá que atribuir, por tanto, al incidente del que estamos tratando. 
 
+```{r meryl}
+meryl.2016 <- read.table('datos/2016-meryl.dat')
+meryl.2017 <- read.table('datos/2017-meryl.dat')
+meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
+                    year=c(rep('2016',nrow(meryl.2016)),rep('2017',nrow(meryl.2017))),
+                    visitas=c(meryl.2016$V1,meryl.2017$V1))
+ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+```
 # Evolución en el ránking de páginas más visitadas
 
 La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, que se extraen con este script:
