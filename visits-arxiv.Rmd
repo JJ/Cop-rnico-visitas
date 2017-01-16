@@ -1,7 +1,7 @@
 ---
 title: "Temporal evolution of notoriety with origin in social networks"
 author: "JJ Merelo"
-date: "15 de enero de 2017"
+date: "16 de enero de 2017"
 output: pdf_document
 bibliography: refs.bib
 abstract: "A consecuencia de un vídeo que se ha hecho viral en estos días y en los
