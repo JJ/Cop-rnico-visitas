@@ -1,8 +1,8 @@
 ---
 title: "Temporal evolution of notoriety with origin in social networks"
 author: "JJ Merelo"
-date: "16 de enero de 2017"
-output: pdf_document
+date: "17 de enero de 2017"
+output: html_document
 bibliography: refs.bib
 abstract: "A consecuencia de un vídeo que se ha hecho viral en estos días y en los
   que se menciona a Copérnico, la figura ha recibido    una cantidad considerable
