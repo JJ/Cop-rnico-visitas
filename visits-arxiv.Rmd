@@ -1,7 +1,7 @@
 ---
 title: "Temporal evolution of notoriety with origin in social networks"
 author: "JJ Merelo"
-date: "20 de enero de 2017"
+date: "28 de enero de 2017"
 output: html_document
 bibliography: refs.bib
 abstract: "A consecuencia de un vídeo que se ha hecho viral en estos días y en los
@@ -13,7 +13,7 @@ abstract: "A consecuencia de un vídeo que se ha hecho viral en estos días y en
   con mucha aproximación, para los documentos examinados. \n"
 ---
 
-#Introducción
+# Introducción
 
 Desde los años 90 se conoce como "Efecto Slashdot" [@adler1999slashdot,@halavais2001slashdot] al aumento en visitas que experimentan los sitios web cuando son referenciados por publicaciones como Slashdot, una de las más visitadas en el área de tecnología y especialmente programación. Se trata de picos de visitas, dirigidos esencialmente a una dirección web, que en muchos casos y en épocas más oscuras en las que no había redes de publicación de contenidos tenían un efecto muy similar a un ataque de denegación de servicio. En España nos hemos referido también repetidamente al *Efecto Menéame* [@dans2008anatomia], por el efecto provocado por este agregador de noticias e incluso, con anterioridad y en mucha menor medida, el "Efecto Barrapunto" [@blanco2009blog] por la web Barrapunto.com, un agregador de noticias tecnológicas.
 
@@ -39,8 +39,8 @@ Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
 ```{r setup,echo=FALSE}
 library(ggplot2)
 library(ggthemes)
-datos.2016 <- read.table('datos/2016.dat')
-datos.2017 <- read.table('datos/2017.dat')
+datos.2016 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2016.dat')
+datos.2017 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2017.dat')
 datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
                     visitas=c(datos.2016$V1,datos.2017$V1))
@@ -67,8 +67,8 @@ De tener un número de visitas parecido, aunque ligeramente superior, se pasa a 
 Es curioso ver también cómo evolucionan algunas páginas asociadas, en concreto la del principal logro de Copérnico, la teoría heliocéntrica, que fue motivo de la interpelación del día siguiente en el debate de televisión
 
 ```{r helio,echo=FALSE}
-hc.2016 <- read.table('datos/visitas-teoría-heliocéntrica-2016.dat')
-hc.2017 <- read.table('datos/visitas-teoría-heliocéntrica-2017.dat')
+hc.2016 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2016.dat')
+hc.2017 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2017.dat')
 hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
                     year=c(rep('2016',nrow(hc.2016)),rep('2017',nrow(hc.2017))),
                     visitas=c(hc.2016$V1,hc.2017$V1))
@@ -106,12 +106,18 @@ Aparte de la curiosidad de cómo evolucionan de la misma forma, con una caída c
 Por otro lado, examinamos también las visitas de la página de Meryl Streep, cuyo discurso durante los Globos de Oro tuvo también una notoriedad considerable, igual que la reacción posterior del presidente electo. Se trata, en este caso, de una página que, de por sí, tiene bastantes visitas, como se ve a continuación.
 
 ```{r meryl,echo=FALSE}
-meryl.2016 <- read.table('datos/2016-meryl.dat')
-meryl.2017 <- read.table('datos/2017-meryl.dat')
+meryl.2016 <- read.table('datos/Meryl_Streep-2016.dat')
+meryl.2017 <- read.table('datos/Meryl_Streep-2017.dat')
+john.2016 <- read.table('datos/John_Hurt-2016.dat')
+john.2017 <- read.table('datos/John_Hurt-2017.dat')
 meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
                     year=c(rep('2016',nrow(meryl.2016)),rep('2017',nrow(meryl.2017))),
                     visitas=c(meryl.2016$V1,meryl.2017$V1))
 ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
+                    year=c(rep('2016',nrow(john.2016)),rep('2017',nrow(john.2017))),
+                    visitas=c(john.2016$V1,john.2017$V1))
+ggplot(john.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
 Por otro lado, la gráfica tiene el aspecto, bastante similar, de *gorro de bruja*, con un pico considerable y un descenso del número de visitas más gradual a lo largo de aproximadamente una semana. Aunque a la fecha de hoy todavía no ha vuelto al número de visitas original, cabe suponer que sucederá más o menos en el mismo plazo que en la página que nos ocupa, lo que establece en 7 días, con relativa seguridad, la duración del *efecto Twitter* en la notoriedad de una figura pública reflejada en las visitas a las páginas de la Wikipedia.
