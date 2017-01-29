@@ -120,7 +120,7 @@ john.2017 <- read.table('datos/John_Hurt-2017.dat')
 meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
                     year=c(rep('2016',nrow(meryl.2016)),rep('2017',nrow(meryl.2017))),
                     visitas=c(meryl.2016$V1,meryl.2017$V1))
-ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
                     year=c(rep('2016',nrow(john.2016)),rep('2017',nrow(john.2017))),
                     visitas=c(john.2016$V1,john.2017$V1))
@@ -130,7 +130,7 @@ carrie.2017 <- read.table('datos/Carrie-Fisher-2017.dat')
 carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
                     year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
                     visitas=c(carrie.2016$V1,carrie.2017$V1))
-ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 george.2016 <- read.table('datos/George-Michael-2016.dat')
 george.2017 <- read.table('datos/George-Michael-2017.dat')
 george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
