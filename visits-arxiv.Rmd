@@ -2,22 +2,22 @@
 title: "Temporal evolution of notoriety with origin in social networks"
 author: "JJ Merelo"
 date: "29 de enero de 2017"
-output: 
-	pdf_document:
-		keep_tex: true
+output:
+  pdf_document:
+    keep_tex: true
 bibliography: refs.bib
 abstract: "The wikipedia is a website created by users and its
-simplicity, references and also the inclusion as insets of their
-introduction in Google search results have made it the go-to place
-to find out about events or persons. Besides, its open interface
-allows any user to know about the number of visits some particular
-page has. In this paper, after certain events that made Copernicus a
-viral meme, we study the intensity of the increment of visits to his
-page, other pages related to it. Using pages related to other persons
-as a comparison, we try to establish a typical duration of notoriety,
-mainly comparing with visits in previous years in the same dates. We
-conclude that a 7 day duration is the mode, something relatively
-independent of the initial increase in the number of visits"
+  simplicity, references and also the inclusion as insets of their
+  introduction in Google search results have made it the go-to place
+  to find out about events or persons. Besides, its open interface
+  allows any user to know about the number of visits some particular
+  page has. In this paper, after certain events that made Copernicus a
+  viral meme, we study the intensity of the increment of visits to his
+  page, other pages related to it. Using pages related to other persons
+  as a comparison, we try to establish a typical duration of notoriety,
+  mainly comparing with visits in previous years in the same dates. We
+  conclude that a 7 day duration is the mode, something relatively
+  independent of the initial increase in the number of visits.\n"
 ---
 
 # Introducción
@@ -125,6 +125,13 @@ john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
                     year=c(rep('2016',nrow(john.2016)),rep('2017',nrow(john.2017))),
                     visitas=c(john.2016$V1,john.2017$V1))
 ggplot(john.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+carrie.2016 <- read.table('datos/Carrie-Fisher-2016.dat')
+carrie.2017 <- read.table('datos/Carrie-Fisher-2017.dat')
+carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
+                    year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
+                    visitas=c(carrie.2016$V1,carrie.2017$V1))
+ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
 ```
 
 Por otro lado, la gráfica tiene el aspecto, bastante similar, de *gorro de bruja*, con un pico considerable y un descenso del número de visitas más gradual a lo largo de aproximadamente una semana. Aunque a la fecha de hoy todavía no ha vuelto al número de visitas original, cabe suponer que sucederá más o menos en el mismo plazo que en la página que nos ocupa, lo que establece en 7 días, con relativa seguridad, la duración del *efecto Twitter* en la notoriedad de una figura pública reflejada en las visitas a las páginas de la Wikipedia.
