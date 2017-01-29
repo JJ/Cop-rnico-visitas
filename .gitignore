@@ -4,3 +4,4 @@ rsconnect/
 auto/
 *.pdf
 .R*
+*.tex
