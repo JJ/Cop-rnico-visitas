@@ -1,16 +1,23 @@
 ---
 title: "Temporal evolution of notoriety with origin in social networks"
 author: "JJ Merelo"
-date: "28 de enero de 2017"
-output: html_document
+date: "29 de enero de 2017"
+output: 
+	pdf_document:
+		keep_tex: true
 bibliography: refs.bib
-abstract: "A consecuencia de un vídeo que se ha hecho viral en estos días y en los
-  que se menciona a Copérnico, la figura ha recibido    una cantidad considerable
-  de atención en estos días, pero fue decayendo rápidamente en los días siguientes
-  hasta desaparecer   de los primeros puestos a los tres días. Veamos exactamente
-  cuanta y cómo ha evolucionado a lo largo del tiempo. También compararemos con otros
-  casos de notoriedad recientes, concluyendo que la duración de una semana se repite,
-  con mucha aproximación, para los documentos examinados. \n"
+abstract: "The wikipedia is a website created by users and its
+simplicity, references and also the inclusion as insets of their
+introduction in Google search results have made it the go-to place
+to find out about events or persons. Besides, its open interface
+allows any user to know about the number of visits some particular
+page has. In this paper, after certain events that made Copernicus a
+viral meme, we study the intensity of the increment of visits to his
+page, other pages related to it. Using pages related to other persons
+as a comparison, we try to establish a typical duration of notoriety,
+mainly comparing with visits in previous years in the same dates. We
+conclude that a 7 day duration is the mode, something relatively
+independent of the initial increase in the number of visits"
 ---
 
 # Introducción
