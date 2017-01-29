@@ -131,6 +131,12 @@ carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
                     year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
                     visitas=c(carrie.2016$V1,carrie.2017$V1))
 ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+george.2016 <- read.table('datos/George-Michael-2016.dat')
+george.2017 <- read.table('datos/George-Michael-2017.dat')
+george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
+                    year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
+                    visitas=c(george.2016$V1,george.2017$V1))
+ggplot(george.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 
 ```
 
