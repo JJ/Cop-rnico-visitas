@@ -1,13 +1,27 @@
 ---
-title: "Temporary evolution of the Twitter effect in the visits to a Wikipedia page."
-author: "JJ Merelo"
-translator: "Elena Merelo"
-date: "14 de enero de 2017"
-output: pdf_document
+title: "Temporal evolution of notoriety with origin in social networks"
+author: "JJ Merelo and Elena Merelo"
+date: "28 de febrero de 2017"
+output:
+  pdf_document:
+    keep_tex: true
 bibliography: refs.bib
-abstract: "Because of a video that went viral not so long ago in which Copernico was mentioned, his figure has received quite a big amount of attention this days, though it quickly decreased as the days went by to eventually disappear from the first positions in the ranking in just three days. Let´s see how much and exactly how it evolved. We will also compare with other more recent cases, coming to the  conclusion that the duration of a week is repited, more or less approximately, for the documents studied. \n"
+abstract:  "The wikipedia is a website created by users and its
+  simplicity, references and also the inclusion as insets of their
+  introduction in Google search results have made it the go-to place
+  to find out about events or persons. Besides, its open interface
+  allows any user to know about the number of visits some particular
+  page has. In this paper, after certain events that made Copernicus a
+  viral meme, we study the intensity of the increment of visits to his
+  page, other pages related to it. Using pages related to other persons
+  as a comparison, we try to establish a typical duration of notoriety,
+  mainly comparing with visits in previous years in the same dates. We
+  conclude that a 7 day duration is the mode, something relatively
+  independent of the initial increase in the number of visits."
 ---
+
 # Introduction
+
 The “Effect Slashdot” [@adler1999slashdot,@halavais2001slashdot] is known since the 90s as the increase in views that the websites experience when mentioned by publications like Slashdot, one of the most visited in the area of technology and especially programming. It´s about the peak in visits, especially in a webpage, that in a lot of cases and more obscure ages in which there weren´t any publication of content networks had a similar effect of a denegation of service attack. In Spain we have also referred to the “Efecto Menéame” [@dans2008anatomia], because of the influence of this aggregator of news and even, before and in a lesser measure, the  "Efecto Barrapunto" [@blanco2009blog] by the web Barrapunto.com.	
 
 To our knowledge, until now there hasn´t been many studies analising a similar effect of the social networks, maybe due to the fact that such a effect is not caused in the websites; even lsser is the effect they have in the search or mental occupation of the concepts. Indeed, the analitic web is currently far more complex and generally the visits of a page are not public. Nowadays it is of more interest to study the tendring topics in the social networks. However, the effect these have in the mindshare of the public and its behaviour while surfing the Net has not been studied.
@@ -32,8 +46,8 @@ We are going to process the data with R so as to convert it in a group:
 ```{r setup,echo=FALSE}
 library(ggplot2)
 library(ggthemes)
-datos.2016 <- read.table('datos/2016.dat')
-datos.2017 <- read.table('datos/2017.dat')
+datos.2016 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2016.dat')
+datos.2017 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2017.dat')
 datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
                     visitas=c(datos.2016$V1,datos.2017$V1))
@@ -55,8 +69,8 @@ From having a similir number of visits, though slightly superior, it goes to hav
 It is interesting to have a look at the evolution of some linked pages, especially the one of the main achievement of Copérnico, the heliocentric theory, which motivated the following day a debate on TV.
 
 ```{r helio,echo=FALSE}
-hc.2016 <- read.table('datos/visitas-teoría-heliocéntrica-2016.dat')
-hc.2017 <- read.table('datos/visitas-teoría-heliocéntrica-2017.dat')
+hc.2016 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2016.dat')
+hc.2017 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2017.dat')
 hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
                     year=c(rep('2016',nrow(hc.2016)),rep('2017',nrow(hc.2017))),
                     visitas=c(hc.2016$V1,hc.2017$V1))
@@ -95,18 +109,43 @@ Apart from the curiosity on how do they evolve in the same way, with a considera
 We also examine the visits to the page of Meryl Streep, whose speech during the Golden Globes had a considerable impact, in the same way as the elected president´s reaction did. In this case it is an example of a page that on its own has a lot of visits:
 
 ```{r meryl,echo=FALSE}
-meryl.2016 <- read.table('datos/2016-meryl.dat')
-meryl.2017 <- read.table('datos/2017-meryl.dat')
+meryl.2016 <- read.table('datos/Meryl_Streep-2016.dat')
+meryl.2017 <- read.table('datos/Meryl_Streep-2017.dat')
+john.2016 <- read.table('datos/John_Hurt-2016.dat')
+john.2017 <- read.table('datos/John_Hurt-2017.dat')
 meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
                     year=c(rep('2016',nrow(meryl.2016)),rep('2017',nrow(meryl.2017))),
                     visitas=c(meryl.2016$V1,meryl.2017$V1))
-ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(meryl.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
+                    year=c(rep('2016',nrow(john.2016)),rep('2017',nrow(john.2017))),
+                    visitas=c(john.2016$V1,john.2017$V1))
+ggplot(john.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+carrie.2016 <- read.table('datos/Carrie-Fisher-2016.dat')
+carrie.2017 <- read.table('datos/Carrie-Fisher-2017.dat')
+carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
+                    year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
+                    visitas=c(carrie.2016$V1,carrie.2017$V1))
+ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+george.2016 <- read.table('datos/George-Michael-2016.dat')
+george.2017 <- read.table('datos/George-Michael-2017.dat')
+george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
+                    year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
+                    visitas=c(george.2016$V1,george.2017$V1))
+ggplot(george.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
+
 On the other hand, the graph ressembles a witch´s hat, with a noteworthy peak and a more gradual descense in the number of visits in a week´s time. Although to the date it has not returned to the original number of views, it is to be supposed that it will take place in more or less in the same period as the page we started studying, hence  seven days for the duration of the Twitter effect in the  notoriety of a public figure and the visits to its Wikipedia pages.
 
 # Evolution in the ranking of the most visited pages
 
-The wikipedia also offers on its API the ranking of the one thousand most visited pages, extracted with a script that is also in the repository and is shown at [@Merelo2017:figshare]; this script generates, in JSON format, a file with the visits, the position of each article and the article itself. This is repited for the rest of the days and next the file is filtered leaving only the Wikipedia articles and deleting special pages as the input or the search page.
+The wikipedia also offers on its API a ranking of the one thousand
+most visited pages, extracted with a script that is also in the
+repository and is shown at [@Merelo2017:figshare]; this script
+generates, in JSON format, a file with the visits, the position of
+each article and the article itself. This is repited for the rest of
+the days and next the file is filtered leaving only the Wikipedia
+articles and deleting special pages as the input or the search page. 
 
 In the next script we read it and draw for two consecutive days starting on the seventh one. Moreover, the special pages of the Wikipedia are erased leaving only the articles.
 
@@ -131,7 +170,14 @@ meryl.cop.datos <- data.frame( dia=c(1:nrow(meryl.2017),1:nrow(datos.2017)),
                     visitas=c(meryl.2017$V1,datos.2017$V1))
 ggplot(meryl.cop.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
+
 This also takes into account the fact that the *Ojeda-Copérnico incident* has awaken interest mainly in Spain, with little or none out of its politic impact. However, what happened to Meryl Streep has had  repercussion on the whole world, of course including South America, where the bigger amount of  visitors of the Spanish Wikipedia is gathered. Nevertheless, initially Meryl Streep´s visits doubled Nicolas Copernico´s, and when its notoriety started, her visits were multiplied by 25, not by 15 as in the other case.
 As a conclussion, the rise in the notoriety of an incident with politic and local connotations is relatively little, compared to a cultural incident with certain politic connotations, which is global. That mindshare does not have an influence in the length of the notoriety, in both cases of about a week. 
 ## Note
 All the data and necessary files can be found at http://github.com/JJ/Cop-rnico-visitas, and can be used with a free license. We will be very grateful given that the person that uses them references this article.
+
+## Note
+
+All files, data and scripts needed to generate this paper are available at http://github.com/JJ/Cop-rnico-visitas and can be used with a free license. If you use in any scientific publication we are grateful for referencing this paper or the other papers working on the same data included in the bibliography. 
+
+## References
