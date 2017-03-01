@@ -1,12 +1,12 @@
 ---
 title: "Temporal evolution of notoriety with origin in social networks"
-author: "JJ Merelo"
-date: "29 de enero de 2017"
+author: "JJ Merelo and Elena Merelo"
+date: "28 de febrero de 2017"
 output:
   pdf_document:
     keep_tex: true
 bibliography: refs.bib
-abstract: "The wikipedia is a website created by users and its
+abstract:  "The wikipedia is a website created by users and its
   simplicity, references and also the inclusion as insets of their
   introduction in Google search results have made it the go-to place
   to find out about events or persons. Besides, its open interface
@@ -17,32 +17,32 @@ abstract: "The wikipedia is a website created by users and its
   as a comparison, we try to establish a typical duration of notoriety,
   mainly comparing with visits in previous years in the same dates. We
   conclude that a 7 day duration is the mode, something relatively
-  independent of the initial increase in the number of visits.\n"
+  independent of the initial increase in the number of visits."
 ---
 
-# Introducción
+# Introduction
 
-Desde los años 90 se conoce como "Efecto Slashdot" [@adler1999slashdot,@halavais2001slashdot] al aumento en visitas que experimentan los sitios web cuando son referenciados por publicaciones como Slashdot, una de las más visitadas en el área de tecnología y especialmente programación. Se trata de picos de visitas, dirigidos esencialmente a una dirección web, que en muchos casos y en épocas más oscuras en las que no había redes de publicación de contenidos tenían un efecto muy similar a un ataque de denegación de servicio. En España nos hemos referido también repetidamente al *Efecto Menéame* [@dans2008anatomia], por el efecto provocado por este agregador de noticias e incluso, con anterioridad y en mucha menor medida, el "Efecto Barrapunto" [@blanco2009blog] por la web Barrapunto.com, un agregador de noticias tecnológicas.
+The “Effect Slashdot” [@adler1999slashdot,@halavais2001slashdot] is known since the 90s as the increase in views that the websites experience when mentioned by publications like Slashdot, one of the most visited in the area of technology and especially programming. It´s about the peak in visits, especially in a webpage, that in a lot of cases and more obscure ages in which there weren´t any publication of content networks had a similar effect of a denegation of service attack. In Spain we have also referred to the “Efecto Menéame” [@dans2008anatomia], because of the influence of this aggregator of news and even, before and in a lesser measure, the  "Efecto Barrapunto" [@blanco2009blog] by the web Barrapunto.com.	
 
-Que sepamos, hasta el momento no ha habido demasiados estudios que analicen un efecto similar de las redes sociales, quizás porque ya no provocan ese efecto en los sitios web; mucho menos el efecto que tienen en la búsqueda o *ocupación mental* de conceptos. También es cierto que la analítica web es hoy en día mucho más complicada y que, en general, no se revelan públicamente las visitas a un sitio. Hoy en día interesa más analizar los *trending topic* en redes sociales. Pero no se ha estudiado qué efecto tienen estos *trending topic* en la ocupación mental del público reflejada en su comportamiento de navegación en Internet.
+To our knowledge, until now there hasn´t been many studies analising a similar effect of the social networks, maybe due to the fact that such a effect is not caused in the websites; even lsser is the effect they have in the search or mental occupation of the concepts. Indeed, the analitic web is currently far more complex and generally the visits of a page are not public. Nowadays it is of more interest to study the tendring topics in the social networks. However, the effect these have in the mindshare of the public and its behaviour while surfing the Net has not been studied.
 
-A principios de 2017, una anécdota en una cabalgata de Reyes Magos de Madrid, en la que un locutor de un vídeo se refirió a un personaje como Colon y este contestó "Soy Copérnico", como [se narra en Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html), provocó un aluvión de memes, extendidos a días posteriores cuando un periodista y un político se enzarzaron en un programa de televisión sobre qué había hecho realmente Copérnico. 
+At the start of 2017, an anecdote in a Three Kings´ parade in Madrid, in which a video locutor referred to a character as Colon and this answered “I am Copernico!” in an amusing tone, [as is narrated in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html), gave way to a storm of memes, extended on the next days when a journalist and a politician discussed in a tv programme about what did Copernico really do.
 
-En una serie de artículos [@merelo17, @merelo17:2, @Merelo2017:figshare] que marca la evolución temporal de esta ocupación mental o *mindshare* a través de las visitas a la página de la Wikipedia de Copérnico [@wiki:Copernico] hemos venido analizando el cambio en el número de visitas sobre todo buscando cuál es la duración temporal de este fenómeno a través de los cambios diarios. En este artículo, que cierra la serie, esperamos buscar las causas de esa duración, sobre todo comparándola con otros *fenómenos* de visitas a la Wikipedia que han sucedido de forma más o menos simultánea.
+In a series of articles [merelo17, @merelo17:2, @Merelo2017:figshare] that show the temporary evolution of this mindshare through the visits to the Wikipedia page of Copernico [@wiki:Copernico] we have analized the change in the number of visits, especially looking for the duration of this phenomenon by means of studying the daily modifications. In this article, that closes the series, we look forward to finding the causes of that duration, comparing it with other phenomenons of visits to the Wikipedia which have happenned rather simultaneously.
 
-El resto del trabajo se organiza de esta forma: A continuación se presenta la metodología que se ha seguido para capturar y analizar los datos; a continuación se analizan las visitas de la página de la Wikipedia y otras páginas relacionadas, así como la evolución en su ránking de páginas vistas en la Wikipedia. Finalmente, tratamos de sacar una serie de conclusiones.
+The project that is left is organised in the following way: Further on the methodology that has been followed in order to capture and study the data is presented; next the visits to the Wikipedia page and other related webpages is analized, all along with the evolution in its ranking of viewed pages in the Wikipedia. Finally, we will draw some conclusions.
 
-# Metodología
+# Methodology
 
-La wikipedia, a través de un interfaz, permite acceder a las visitas de cada una de las diferentes páginas creadas en ella. Es un interfaz de tipo REST al que se puede acceder directamente. Lo hacemos mediante un *script*, que, como el resto de los datos y programas, son software libre y se pueden descargar de la página que figura a continuación de las conclusiones y se ha mostrado también en [@Merelo2017:figshare]. El script usa `curl` para descargarse el fichero, sin más complicación que codificar como URI el nombre de la página, justo detrás de `all-agents`, y poner como dos últimos parámetros las dos fechas en las que nos movemos, desde principios de año hasta ahora. Como esto descarga un fichero en JSON, extraemos el dato que nos interesa usando la utilidad `jq`, que permite hacer búsquedas complejas sobre ficheros JSON: las visitas, y lo vertimos en sendos ficheros de datos. De la misma forma se descargan las visitas de todas las páginas a las que nos vamos a referir en este artículo.
+The Wikipedia, through its interface, allows acces to the visits of each and every one of the different pages created in it. It is a REST interface which can be directly accessed to. We do it thanks to a script that, as the rest of data and programmes, is free software and hence can be downloaded from the page that follows the conclusions and has also been shown in [@Merelo2017:figshare]. The script uses `curl` for downloading the file, just by codifying as URL th name of the page, next to `all-agents`, and selecting as parameters the two dates in which we are interested, from the start of 2017 until now. Owing to the fact that this downloads a file in JSON, we pull the data we are interested in out by means of the `jq` utility, that allows to make complex searchs int JSON files: the views, and we put it in data files. Same for downloading the views of all the pages we mention in this article.
 
-Se usan scripts similares para obtener las visitas del resto de las páginas referenciadas. Por otro lado, para extraer el ránking de las mil páginas más visitadas, se usa un script que extrae el puesto dentro del ránking y el número de visitas, aparte del título del artículo en sí. A continuación, se filtra para dejar sólo los artículos en el ránking, eliminando páginas especiales; también se recalcula el ránking. Finalmente, se procesan también estos ránkings para calcular la evolución de la posición de una página a lo largo de los días, guardando en en un fichero un número con la posición que ocupa la página determinada cada día. 
+Similar scripts are used so that the visits of the pages referenced are obtained. Nonetheless, in order to extract the ranking of the one thousand most visited pages, a script that gets the position in the ranking and the number of visits, along with the title of the article, is used. Then, the information is filtered, leaving solely the articles that are in the ranking, deleting special pages. Furthermore the ranking is one again calculated. Last, these rankings are processed to calculate the evolution in the position of the page as the days go by, saving in a file a number with the position that a specific page occupies each day.
+The result of the data is shown next:
 
-Los resultados de estos datos los mostramos a continuación:
+## Visits to the page of Nicolás Copérnico and other related pages
 
-## Visitas de la página Nicolás Copérnico y otras páginas asociadas
+We are going to process the data with R so as to convert it in a group:
 
-Estos datos los vamos a procesar con R para convertirlos en un sólo conjunto:
 ```{r setup,echo=FALSE}
 library(ggplot2)
 library(ggthemes)
@@ -51,27 +51,22 @@ datos.2017 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2017.dat')
 datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
                     visitas=c(datos.2016$V1,datos.2017$V1))
-```
-
-
-A continuación trazamos los datos de cada día, por año. 
+```               
+Next we draw the data of each day, by year.
 
 ```{r imagen,echo=FALSE}
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
-
-Se nota que, tras alcanzar un pico el primer día, desciende el segundo y mucho más rápidamente el tercero; sin embargo, a partir del cuarto día el descenso es mucho más suave, hasta llegar a tener más o menos los mismos datos una semana después. 
-
-Vamos a ver la relación de visitas entre el año pasado y el corriente
+It is noticeable that, after reaching a peak the first day, it descends the second one and even quicklier the third one. Nevertheless, from the fourth day the fall is much softer, until having approximately the same data a week later.
+Let´s see the relationship between last and this year´s visits.
 
 ```{r ratio,echo=FALSE}
 ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
 ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
 ```
+From having a similir number of visits, though slightly superior, it goes to having 20 times more visits, number that slowly drops to 10 times three days past the peak. On the fifth day the rate is of a 50% more of visits; a little bit over last year´s on the same date, taking into account that last year´s tendency was of a gradual growth in the number of visits.
 
-De tener un número de visitas parecido, aunque ligeramente superior, se pasa a tener 20 veces más visitas, número que va descendiendo hasta 10 veces a los tres días del comienzo de la notoriedad. Al quinto día la tasa es de un 50% más de visitas; ligeramente por encima del año anterior en la misma fecha, teniendo en cuenta además que el año anterior la tendencia era a un aumento paulatino de las visitas. 
-
-Es curioso ver también cómo evolucionan algunas páginas asociadas, en concreto la del principal logro de Copérnico, la teoría heliocéntrica, que fue motivo de la interpelación del día siguiente en el debate de televisión
+It is interesting to have a look at the evolution of some linked pages, especially the one of the main achievement of Copérnico, the heliocentric theory, which motivated the following day a debate on TV.
 
 ```{r helio,echo=FALSE}
 hc.2016 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2016.dat')
@@ -81,10 +76,9 @@ hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
                     visitas=c(hc.2016$V1,hc.2017$V1))
 ggplot(hc.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
+The number of visits has another escale and thus there are more fluctiations along the day. However, like in the previous case, even though initially the visits were very much alike or even inferiors, presumably in five days it went back to its initial value, with a small variation. In five days it has less visits than last year, the same situation that the previous day to the incident.
 
-El número de visitas tiene otra escala y por tanto hay más fluctuaciones a lo largo del día. Sin embargo, como en el caso anterior, aunque inicialmente las visitas eran similares o incluso inferiores, en 5 días prácticamente se ha vuelto al valor inicial, con una variación muy pequeña. En cinco días vuelve a tener *menos* visitas que el año pasado, la misma situación que el día anterior al incidente. 
-
-Pero lo que también cambia es la correlación entre el número de personas que visitan una web y los que visitan otra. Lo vemos en el siguiente gráfico.
+What also changes is the correlation between the number of people that visit a web and the ones that visit another. We have a look at it in the next graphic.
 
 ```{r ratiohc,echo=FALSE}
 ratio.hc.2016 <- datos.2016/hc.2016
@@ -95,9 +89,11 @@ hc.ratios <- data.frame( dia=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
 ggplot(hc.ratios,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-En el año 2016 hay una tasa ligeramente inferior a 2, es decir, que la página de la teoría heliocéntrica recibe más o menos la mitad de visitas que la de Copérnico, con no demasiadas variaciones; cabe suponer que hay más interés por el personaje que por su aportación, pero tampoco demasiado. Sin embargo, cuando el asunto "Copérnico-Ojeda" estalla, de repente las personas se interesan por el personaje, sin preocuparse demasiado por comprender cuál fue su aportación a la ciencia. Cabe señalar que no sabemos si se tratan de las mismas personas porque no se sabe el camino que siguen en la Wikipedia, aunque es razonable suponer que un porcentaje considerable de las personas que visiten cualquiera de las dos páginas acabará siguiendo los enlaces para ir a la otra. El enlace a la teoría aparece en las primeras líneas de la página de Copérnico y ese el décimo tercer enlace desde el principio de la página, mientras que Copérnico aparece en el segundo párrafo de la página de la teoría siendo más o menos también el mismo número de enlace, el décimo en este momento. 
+In the year 2016 there is a rate inferior to 2, consequently the page of the heliocentric theory receives more or less half the visits that Copérnico´s, with little variations. We suppose that there is more interest in the character than in its contribution, though not a lot. On the other hand, when the issue “Copérnico-Ojeda" breaks out, all of a sudden the people get curious about hte character, without caring much about his contribution to the scientific world. It is to important to point out that we don´t know whether they are the same people that visit the webpage, because of the fact that the path they follow in Wikipedia is not in our knowledge. Anyway, it is reasonable to suppose that a paramount percentage of the people that visit whichever of the pages will end up following the links in order to visit the other one. 
 
-Veamos también, como control, otra página, la de Galileo Galilei, que fue quien difundió la teoría heliocéntrica. No aparece de ninguna manera en el incidente pero puede ser interesante para ver el interés que tiene en este tipo de páginas y si hay una derivación de interés de una a otra. 
+The link to the theory appears in the first lines of Copérnico´s page and it is the thirteenth link from the start of the page, while Copérnico shows up int the second paragraph of the theory page, being the tenth now.
+
+Let´s also see another page, Galileo Galilei´s, who spread the heliocentric theory. It does not materialize in any way in the incidet but can be appealing to study the interest these kind of pages have and whether there is a offshoot of interest from one to another.
 
 ```{r galileo,echo=FALSE}
 galileo.2016 <- read.table('datos/2016-galileo.dat')
@@ -108,9 +104,9 @@ galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
 ggplot(galileo.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Aparte de la curiosidad de cómo evolucionan de la misma forma, con una caída considerable el día 7, no hay ninguna tendencia clara ni cabe suponer que las páginas con este tipo de contenido hubieran tenido, un interés creciente del año pasado a este y, de hecho, el día 12 ya hay menos visitas en la página de Galileo que el año anterior. Aunque puede que sí haya habido una cierta transferencia de interés y por tanto de visitas de una a otra, ya que de hecho la de Galileo está enlazadas desde la de Copérnico, el hecho de que no haya cambios en el mismo sentido que la de Copérnico descarta un interés súbito en la ciencia del renacimiento y la teoría heliocéntrica como una causa del aumento de visitas que habrá que atribuir, por tanto, al incidente del que estamos tratando. 
+Apart from the curiosity on how do they evolve in the same way, with a considerable drop the seventh day, there is neither an obvious tendency nor can we suppose that pages of this kind of content could have an increased interest. In fact, the twelfth day there were less visits in Galileo´s page than last year. Although there is a chance of a transfer of attention and hence of visits from one to another, since Galileo´s is linked to Copérnicos, and as there aren´t changes in the same way as in Copérnico´s rules out a sudden interest in the Renaissance Science and the heliocentric theory like a cause of the rise in visits that will be then attributable to the incident.
 
-Por otro lado, examinamos también las visitas de la página de Meryl Streep, cuyo discurso durante los Globos de Oro tuvo también una notoriedad considerable, igual que la reacción posterior del presidente electo. Se trata, en este caso, de una página que, de por sí, tiene bastantes visitas, como se ve a continuación.
+We also examine the visits to the page of Meryl Streep, whose speech during the Golden Globes had a considerable impact, in the same way as the elected president´s reaction did. In this case it is an example of a page that on its own has a lot of visits:
 
 ```{r meryl,echo=FALSE}
 meryl.2016 <- read.table('datos/Meryl_Streep-2016.dat')
@@ -137,16 +133,21 @@ george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
                     year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
                     visitas=c(george.2016$V1,george.2017$V1))
 ggplot(george.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
-
 ```
 
-Por otro lado, la gráfica tiene el aspecto, bastante similar, de *gorro de bruja*, con un pico considerable y un descenso del número de visitas más gradual a lo largo de aproximadamente una semana. Aunque a la fecha de hoy todavía no ha vuelto al número de visitas original, cabe suponer que sucederá más o menos en el mismo plazo que en la página que nos ocupa, lo que establece en 7 días, con relativa seguridad, la duración del *efecto Twitter* en la notoriedad de una figura pública reflejada en las visitas a las páginas de la Wikipedia.
+On the other hand, the graph ressembles a witch´s hat, with a noteworthy peak and a more gradual descense in the number of visits in a week´s time. Although to the date it has not returned to the original number of views, it is to be supposed that it will take place in more or less in the same period as the page we started studying, hence  seven days for the duration of the Twitter effect in the  notoriety of a public figure and the visits to its Wikipedia pages.
 
-# Evolución en el ránking de páginas más visitadas
+# Evolution in the ranking of the most visited pages
 
-La wikipedia también ofrece en su API el ránking de las mil primeras páginas vistas, extraídas con un *script* que también está en el repositorio y se muestra en [@Merelo2017:figshare]; este *script* genera, en formato JSON, un fichero con las visitas, el puesto que ocupa cada artículo y el artículo en sí. Esto se repite para el resto de los días y a continuación el fichero se filtra dejando solamente los artículos de la Wikipedia y eliminando páginas especiales como la entrada o la página de búsqueda. 
+The wikipedia also offers on its API a ranking of the one thousand
+most visited pages, extracted with a script that is also in the
+repository and is shown at [@Merelo2017:figshare]; this script
+generates, in JSON format, a file with the visits, the position of
+each article and the article itself. This is repited for the rest of
+the days and next the file is filtered leaving only the Wikipedia
+articles and deleting special pages as the input or the search page. 
 
-En el *script* siguiente lo leemos y lo trazamos para dos días seguidos comenzando en el día 7, además, filtramos las páginas *especiales* de la wikipedia dejando solamente los artículos. 
+In the next script we read it and draw for two consecutive days starting on the seventh one. Moreover, the special pages of the Wikipedia are erased leaving only the articles.
 
 ```{r ranking,echo=FALSE}
 library(jsonlite)
@@ -155,16 +156,13 @@ ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ g
 ranking.08 <- fromJSON("datos/ranking-080117-filtrado.json")
 ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ```
+From not being between the 1000 most visited pages the day before, it has entered directly to the number 4, slightly behind the Three Kings on the day 7 and th film that apparently was on TV, Captain Phillips. The following day, day 9, Copernico´s article dropped to the 49th position in the filtered ranking. From there it fell to the 139th, 334th and eventually disappeared of the 1000 most visited pages of the Wikipedia. The page about the heliocentric theory was just the first two days, in the positions 215 and 393, to disappear the next day.
+The other pages naturally have their explanation, though it is quite remarkable the relatively unknown Sandford Fleming, who reached such position because of [being the Google Doodle of the day](https://www.google.com/doodles/sandford-flemings-190th-birthday).
 
-De no estar entre las 1000 páginas con más visitas el día anterior, ha entrado directamente en el número 4, ligeramente detrás de los Reyes Magos el día 7 y de la película que, al parecer, estaban poniendo en alguna televisión, Capitán Phillips. Al día siguiente, día 9, el artículo de Copérnico cayó hasta el puesto 49 del ránking filtrado. A partir de ahí bajó al 139, de ahí 334 y a continuación desapareció de las 1000 páginas más vistas de la Wikipedia. La página sobre la teoría heliocéntrica sólo estuvo los dos primeros días, en los puestos 215 y 393, para desaparecer al día siguiente. 
+# Conclussion
 
-Las otras páginas, como es natural, tienen también su explicación, pero cabe destacar al relativamente desconocido Sandford Fleming que alcanzó tal puesto por [ser el objeto del Google Doodle del día](https://www.google.com/doodles/sandford-flemings-190th-birthday).
-
-#Conclusión
-
-Las visitas a día equivalente se han multiplicado por 20, más o menos, el primer día. Los días siguientes se va perdiendo interés, alcanzando el aumento en el número de visitas más o menos una semana, que se puede considerar, por tanto, la duración estándar de la vida de un *meme*, al menos en estas fechas y en este país y para memes de este tipo, con un sólo nombre o figura identificable. Los datos obtenidos tanto para Copérnico como para otros incidentes similares, como el de Meryl Streep, parecen confirmar esos datos, que, evidentemente sólo tendrán validez estadística universal cuando se reproduzcan los resultados para muchos más casos similares. 
-
-Estos memes, además, no suelen tener demasiada *profundidad*, quedándose relegados a una sola página e incluso a los primeros párrafos de la misma. No parece que haya extensión del interés a otros conceptos o personas relacionados con el mismo. En cuanto a la importancia global en la *ocupación mental* del público de Internet, depende en gran medida del interés inicial por el sujeto. Las visitas a la página de Meryl Streep, por ejemplo, alcanzan un nivel mucho mayor y su puesto en el ránking se mantiene durante más tiempo, también porque, previamente, ya estaba entre las 1000 páginas más vistas de la Wikipedia española. 
+The visits per day are multiplied by 20, more or less, the first day. The following days it loses interest, being the duration of the phenomenon approximately a week, indeed the lifetime of a meme, at least nowadays, in this country and for this type of memes. With solely a name or an identifiable person. Therefore, the data obtained for Copernico as well as similar incidents like Meryl Streep´s, seem to confirm these results that presumably will only have an universal statistic value when they are reproduced for a greater range of cases.
+In addition these memes don´t tend to have much *depth*, being relegated to just a page or even to the first paragraph of it. It doesn´t seem as if the interest was spread to other concepts or people linked to it. As to the global importance of the mental occupation of the Internet´s public, it depends greatly on the initial interest of the person. The visits to the page of Meryl Streep, for instance, reach a far higher level and its position in the ranking is kept for more time, also owing to the fact that it was already between the 1000 most visited pages of the Spanish Wikipedia.
 
 ```{r meryl-cop,echo=FALSE}
 meryl.cop.datos <- data.frame( dia=c(1:nrow(meryl.2017),1:nrow(datos.2017)),
@@ -173,11 +171,13 @@ meryl.cop.datos <- data.frame( dia=c(1:nrow(meryl.2017),1:nrow(datos.2017)),
 ggplot(meryl.cop.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Esto también tiene en cuenta el hecho de que el *incidente Ojeda-Copérnico* ha tenido interés principalmente en España, con escaso o nulo interés fuera por su repercusión política. Sin embargo, lo ocurrido con Meryl Streep ha tenido eco en todo el mundo, incluyendo por supuesto en Hispanoamérica, donde se concentran la mayor parte de los visitantes de la Wikipedia en español. Incluso así, inicialmente Meryl Streep tenía el doble de visitas que Nicolás Copérnico, y cuando comenzó la notoriedad, sus visitas se multiplicaron por 25, no por 15 como en el otro caso. Con esto lo que se concluye es que el aumento de la notoriedad por un incidente con connotaciones políticas y locales es relativamente escaso, comparado con un incidente cultural, relacionado con una figura también de la cultura, aunque tenga ciertas connotaciones políticas, en este caso globales. Ese *mindshare* u ocupación mental, en todo caso, no influye en la duración de la notoriedad que es, en ambos casos, de aproximadamente una semana. 
-
+This also takes into account the fact that the *Ojeda-Copérnico incident* has awaken interest mainly in Spain, with little or none out of its politic impact. However, what happened to Meryl Streep has had  repercussion on the whole world, of course including South America, where the bigger amount of  visitors of the Spanish Wikipedia is gathered. Nevertheless, initially Meryl Streep´s visits doubled Nicolas Copernico´s, and when its notoriety started, her visits were multiplied by 25, not by 15 as in the other case.
+As a conclussion, the rise in the notoriety of an incident with politic and local connotations is relatively little, compared to a cultural incident with certain politic connotations, which is global. That mindshare does not have an influence in the length of the notoriety, in both cases of about a week. 
+## Note
+All the data and necessary files can be found at http://github.com/JJ/Cop-rnico-visitas, and can be used with a free license. We will be very grateful given that the person that uses them references this article.
 
 ## Note
 
 All files, data and scripts needed to generate this paper are available at http://github.com/JJ/Cop-rnico-visitas and can be used with a free license. If you use in any scientific publication we are grateful for referencing this paper or the other papers working on the same data included in the bibliography. 
 
-## Bibliografía
+## References
