@@ -1,5 +1,5 @@
 ---
-title: "Temporal evolution of notoriety with origin in social networks"
+title: "Temporal evolution of notoriety of Wikipedia pages with origin in social networks"
 author: "JJ Merelo and Elena Merelo"
 date: "28 de febrero de 2017"
 output:
