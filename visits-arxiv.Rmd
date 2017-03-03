@@ -22,9 +22,34 @@ abstract:  "The wikipedia is a website created by users and its
 
 # Introduction
 
-The “Effect Slashdot” [@adler1999slashdot,@halavais2001slashdot] is known since the 90s as the increase in views that the websites experience when mentioned by publications like Slashdot, one of the most visited in the area of technology and especially programming. It´s about the peak in visits, especially in a webpage, that in a lot of cases and more obscure ages in which there weren´t any publication of content networks had a similar effect of a denegation of service attack. In Spain we have also referred to the “Efecto Menéame” [@dans2008anatomia], because of the influence of this aggregator of news and even, before and in a lesser measure, the  "Efecto Barrapunto" [@blanco2009blog] by the web Barrapunto.com.	
+The so called “Slashdot Effect”
+[@adler1999slashdot,@halavais2001slashdot], known since the end of the
+90s, is the name attributed the increase in pageviews that the
+websites experience when mentioned by publications
+like [Slashdot](http://slashdot.org), one of the most visited in the
+area of technology and especially programming. This effect provokes a
+peak in visits, especially directed to a single webpage, that in a lot
+of cases and more obscure ages in which there were not any publication
+of content networks had a similar effect of a denial of service
+attack. In Spain we have also referred to the “Efecto Menéame”
+[@dans2008anatomia], because of the influence of this aggregator of
+news and even, before and in a lesser measure, the "Efecto Barrapunto"
+[@blanco2009blog] originated by mentions the web Barrapunto.com, a
+Spanish Slashdot. 
 
-To our knowledge, until now there hasn´t been many studies analising a similar effect of the social networks, maybe due to the fact that such a effect is not caused in the websites; even lsser is the effect they have in the search or mental occupation of the concepts. Indeed, the analitic web is currently far more complex and generally the visits of a page are not public. Nowadays it is of more interest to study the tendring topics in the social networks. However, the effect these have in the mindshare of the public and its behaviour while surfing the Net has not been studied.
+However and to the extent of our knowledge, until now there has not
+been many studies analising a similar effect provoked by mentions in
+social networks, maybe due to the fact that such a effect is not
+caused by a single website and might be eventually directed to many
+different pages; even lesser is the effect they have in the search or
+mindshare of the concepts. Indeed, web analytics is currently far more
+complex and generally the visits on a page, say, of a newspaper or
+ecommerce site are not public. And besides, instead of studying the
+effect of a single link, nowadays it is of more interest to study the
+topics that become in the social networks. However, the effect these
+have in the mindshare of the public and its behaviour while surfing
+the Net has not received so much attention as the behavior of the
+trending topics themselves. 
 
 At the start of 2017, an anecdote in a Three Kings´ parade in Madrid, in which a video locutor referred to a character as Colon and this answered “I am Copernico!” in an amusing tone, [as is narrated in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html), gave way to a storm of memes, extended on the next days when a journalist and a politician discussed in a tv programme about what did Copernico really do.
 
