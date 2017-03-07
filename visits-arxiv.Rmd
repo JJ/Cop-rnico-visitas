@@ -80,14 +80,40 @@ several reasons. Finally, we will draw some conclusions.
 
 ## Methodology
 
-The Wikipedia, through its interface, allows acces to the visits of each and every one of the different pages created in it. It is a REST interface which can be directly accessed to. We do it thanks to a script that, as the rest of data and programmes, is free software and hence can be downloaded from the page that follows the conclusions and has also been shown in [@Merelo2017:figshare]. The script uses `curl` for downloading the file, just by codifying as URL th name of the page, next to `all-agents`, and selecting as parameters the two dates in which we are interested, from the start of 2017 until now. Owing to the fact that this downloads a file in JSON, we pull the data we are interested in out by means of the `jq` utility, that allows to make complex searchs int JSON files: the views, and we put it in data files. Same for downloading the views of all the pages we mention in this article.
+The Wikipedia, through its application programming interface (API),
+allows acces to the visits of each and every one of the different
+pages it hosts. It is a REST interface which can be directly accessed
+without any authentication. For the purposes of this paper, we tap
+this API using  a script that, along with the rest of data and
+programmes, is free software and hence can be downloaded from GitHub
+[@Merelo2017:figshare]. The script uses `curl` for downloading the
+file, just by codifying as URL the name of the page, next to
+`all-agents`, and selecting as parameters the two dates in which we
+are interested, from the start of 2017 until now. Due  to the fact
+that the Wikipedia API returns a file in JSON, we pull the data we are
+interested 
+in out by means of the `jq` utility, that allows to make complex
+queries to JSON files. That way, we extract the views, and we put it
+in data files, which will also be attached to this paper. The rest of
+the data analyzed in this paper is extracted in the same way, via
+shell scripts that download an URL and the use of `jq`. 
 
-Similar scripts are used so that the visits of the pages referenced are obtained. Nonetheless, in order to extract the ranking of the one thousand most visited pages, a script that gets the position in the ranking and the number of visits, along with the title of the article, is used. Then, the information is filtered, leaving solely the articles that are in the ranking, deleting special pages. Furthermore the ranking is one again calculated. Last, these rankings are processed to calculate the evolution in the position of the page as the days go by, saving in a file a number with the position that a specific page occupies each day.
-The result of the data is shown next:
+ Nonetheless, in order to extract the ranking of the one thousand most
+ visited pages, a script that gets the position in the ranking and the
+ number of visits, along with the title of the article, is used. Then,
+ the information is filtered, leaving only the "content" articles that are in
+ the ranking, deleting special pages. Furthermore the ranking is once
+ again calculated. Last, these rankings are processed to calculate the
+ evolution in the position of the page as the days go by, saving in a
+ file a number with the position that a specific page occupies each
+ day. 
+ 
+The result of analyzing the data are shown
 
 ## Visits to the page of Nicolás Copérnico and other related pages
 
-We are going to process the data with R so as to convert it in a group:
+Data is processed in this paper using R; scripts can be accessed in
+the source to this paper.
 
 ```{r setup,echo=FALSE}
 library(ggplot2)
@@ -98,21 +124,42 @@ datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
                     visitas=c(datos.2016$V1,datos.2017$V1))
 ```               
-Next we draw the data of each day, by year.
+
+First we will focus on the anecdote that originated this paper by
+analyzing the visits to the Nicolás Copérnico page in the Spanish
+wikipedia during 2017 and the same period in 2016. This period falls
+outside the school year in Spain, with classes starting just next to
+that day. That might account for a certain interest in the page, which
+implies that there will be some daily variation in the number of
+visits anyway. Comparing the visits for two years will help us
+discount that effect. 
 
 ```{r imagen,echo=FALSE}
 ggplot(datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
-It is noticeable that, after reaching a peak the first day, it descends the second one and even quicklier the third one. Nevertheless, from the fourth day the fall is much softer, until having approximately the same data a week later.
-Let´s see the relationship between last and this year´s visits.
+It is noticeable that, after reaching a peak the first day, it
+descends the second one and even quicklier the third
+one. Nevertheless, from the fourth day the fall is much softer, until
+having approximately the same data a week later. In fact, there is
+some variation also in the previous year, that is why we compare  the
+relationship between last and this year´s visits in the next chart.
 
 ```{r ratio,echo=FALSE}
 ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
 ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
 ```
-From having a similir number of visits, though slightly superior, it goes to having 20 times more visits, number that slowly drops to 10 times three days past the peak. On the fifth day the rate is of a 50% more of visits; a little bit over last year´s on the same date, taking into account that last year´s tendency was of a gradual growth in the number of visits.
+From an initial situation where the number of visits is similar,
+though slightly superior, it goes to having 20 times more visits,
+number that slowly drops to 10 times three days past the peak. On the
+fifth day the rate is of a 50% more visits; a little bit over last
+year´s on the same date, taking into account that last year´s tendency
+was of a gradual growth in the number of visits. Eventually, the
+number of visits reaches a plateau. 
 
-It is interesting to have a look at the evolution of some linked pages, especially the one of the main achievement of Copérnico, the heliocentric theory, which motivated the following day a debate on TV.
+It is interesting to have a look at the evolution of some pages linked
+to the same concept, especially the one of the main achievement of
+Copérnico, the heliocentric theory, which motivated the following day
+a debate on TV. 
 
 ```{r helio,echo=FALSE}
 hc.2016 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2016.dat')
@@ -122,9 +169,15 @@ hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
                     visitas=c(hc.2016$V1,hc.2017$V1))
 ggplot(hc.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
-The number of visits has another escale and thus there are more fluctiations along the day. However, like in the previous case, even though initially the visits were very much alike or even inferiors, presumably in five days it went back to its initial value, with a small variation. In five days it has less visits than last year, the same situation that the previous day to the incident.
+The number of visits moves in a different scale and thus there are
+more fluctiations along the day. However, like in the previous case,
+even though initially the visits were very much alike or even
+inferiors, presumably in five days it went back to its initial value,
+with a small variation. In five days it has less visits than last
+year, the same situation that the previous day to the incident. 
 
-What also changes is the correlation between the number of people that visit a web and the ones that visit another. We have a look at it in the next graphic.
+What also changes is the correlation between the number of people that
+visit a web and the ones that visit the other. We have a look at it in the next graphic.
 
 ```{r ratiohc,echo=FALSE}
 ratio.hc.2016 <- datos.2016/hc.2016
@@ -135,11 +188,28 @@ hc.ratios <- data.frame( dia=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
 ggplot(hc.ratios,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-In the year 2016 there is a rate inferior to 2, consequently the page of the heliocentric theory receives more or less half the visits that Copérnico´s, with little variations. We suppose that there is more interest in the character than in its contribution, though not a lot. On the other hand, when the issue “Copérnico-Ojeda" breaks out, all of a sudden the people get curious about hte character, without caring much about his contribution to the scientific world. It is to important to point out that we don´t know whether they are the same people that visit the webpage, because of the fact that the path they follow in Wikipedia is not in our knowledge. Anyway, it is reasonable to suppose that a paramount percentage of the people that visit whichever of the pages will end up following the links in order to visit the other one. 
+In the year 2016 there is a rate inferior to 2, consequently the page
+of the heliocentric theory receives more or less half the visits that
+Copérnico´s, with little variations. We suppose that there is more
+interest in the character than in its contribution, though not a
+lot. On the other hand, when the issue “Copérnico-Ojeda" breaks out,
+all of a sudden the people get curious about the character, without
+caring much about his contribution to the scientific world. It is to
+important to point out that we do not know whether they are the same
+people that visit the webpage, because of the fact that the path they
+follow in Wikipedia is not returned by the API. Anyway, it is reasonable
+to suppose that a big percentage of the people that visit
+whichever of the pages will end up following the links in order to
+visit the other one. The link to the heliocentric theory appears in
+the first lines of Copérnico´s page and it is the thirteenth link from
+the start of the page, while Copérnico shows up int the second
+paragraph of the theory page, being the tenth link in this case.
 
-The link to the theory appears in the first lines of Copérnico´s page and it is the thirteenth link from the start of the page, while Copérnico shows up int the second paragraph of the theory page, being the tenth now.
-
-Let´s also see another page, Galileo Galilei´s, who spread the heliocentric theory. It does not materialize in any way in the incidet but can be appealing to study the interest these kind of pages have and whether there is a offshoot of interest from one to another.
+Let´s also see another page, Galileo Galilei´s, who spread the
+heliocentric theory. His name  does not show up in any way in the
+incident but to check the visits here would be relevant to study the interest these kind of
+pages have and whether there is a offshoot of interest from one to
+another. 
 
 ```{r galileo,echo=FALSE}
 galileo.2016 <- read.table('datos/2016-galileo.dat')
@@ -150,7 +220,24 @@ galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
 ggplot(galileo.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Apart from the curiosity on how do they evolve in the same way, with a considerable drop the seventh day, there is neither an obvious tendency nor can we suppose that pages of this kind of content could have an increased interest. In fact, the twelfth day there were less visits in Galileo´s page than last year. Although there is a chance of a transfer of attention and hence of visits from one to another, since Galileo´s is linked to Copérnicos, and as there aren´t changes in the same way as in Copérnico´s rules out a sudden interest in the Renaissance Science and the heliocentric theory like a cause of the rise in visits that will be then attributable to the incident.
+Apart from the curiosity on  do they evolve in the same way, with a
+considerable drop the seventh day, there is neither an obvious
+tendency nor can we suppose that pages of this kind of content could
+have an increased interest. In fact, the twelfth day there were less
+visits in Galileo´s page than last year. Although there is a chance of
+a transfer of attention and hence of visits from one to another, since
+Galileo´s is linked to Copérnicos, and as there aren´t changes in the
+same way as in Copérnico´s rules out a sudden interest in the
+Renaissance Science and the heliocentric theory like a cause of the
+rise in visits that will be then attributable to the incident. 
+
+From this analysis we can conclude that the interest in a particular
+Wikipedia page famous through a meme in the social networks lasts
+around seven days, and that it is a shallow interest extending
+exclusively to the page itself, not any concepts related to it. Let us
+see next what happens to other similar pages.
+
+## Duration of notability in other Wikipedia pages. 
 
 We also examine the visits to the page of Meryl Streep, whose speech during the Golden Globes had a considerable impact, in the same way as the elected president´s reaction did. In this case it is an example of a page that on its own has a lot of visits:
 
