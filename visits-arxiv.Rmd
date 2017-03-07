@@ -259,14 +259,14 @@ john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
 ggplot(john.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
-The number of visits reached by John Hurt's wikipedia page is almost 3 times as high as the one reached by Meryl Streep. The mechanism at work here must go in the opposite direction of fame: John Hurt was not probably known by name, so people looked him up much more than Meryl Streep, who is a household name and whose movies are shown continously, even in Spanish TV channels. But even with the different scales, the *relaxation time* hovers around 7 days, a few more in the case of Meryl Streep (left). Besides, when the visits plateau the *new normal* is slightly superior to the visits achieved in the previous year or before the incident that initiated the sudden fame. Let us see this in the second case, the John Hurt page
+The number of visits reached by John Hurt's wikipedia page is almost 3 times as high as the one reached by Meryl Streep. The mechanism at work here must go in the opposite direction of fame: John Hurt was not probably known by name, so people looked him up much more than Meryl Streep, who is a household name and whose movies are shown continously, even in Spanish TV channels. But even with the different scales, the *relaxation time* hovers around 7 days, a few more in the case of Meryl Streep (left). Besides, when the visits plateau the *new normal* is slightly superior to the visits achieved in the previous year or before the incident that initiated the sudden fame. Let us see this in the second case, the John Hurt page.
 
 ```{r ratiojohn,echo=FALSE}
-ratio <- data.frame( dia=c(1:nrow(john.2016)),ratio=john.2017$V1/john.2016$V1)
-ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
+ratio <- data.frame( day=c(1:nrow(john.2016)),ratio=john.2017$V1/john.2016$V1)
+ggplot(ratio,aes(x=day,y=ratio))+geom_line()+scale_y_log10() + theme_tufte()
 ```
 
-
+We plot the *y* axis in a logarithmic scale to see more clearly the ration after *relaxation*. 
 
 ```{r carrie,echo=FALSE,fig.width=2.75, fig.height=4,fig.align='top'}
 # Vaughn
