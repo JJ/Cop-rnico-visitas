@@ -263,10 +263,12 @@ The number of visits reached by John Hurt's wikipedia page is almost 3 times as 
 
 ```{r ratiojohn,echo=FALSE}
 ratio <- data.frame( day=c(1:nrow(john.2016)),ratio=john.2017$V1/john.2016$V1)
-ggplot(ratio,aes(x=day,y=ratio))+geom_line()+scale_y_log10() + theme_tufte()
+ggplot(ratio,aes(x=day,y=ratio,color='Ratio'))+geom_line()+scale_y_log10() + theme_tufte() + geom_hline(aes(yintercept=1))
 ```
 
-We plot the *y* axis in a logarithmic scale to see more clearly the ration after *relaxation*. 
+We plot the *y* axis in a logarithmic scale to see more clearly the ration after *relaxation*. The straight line goes through the ratio == 1. Although there are variations, for a few days after the peak ratio is still slightly higher than 1, which seems to imply that the *mindshare* of this particular meme follows two different phases: one of sharp decline, that lasts the aforementioned 7-10 days, followed by a plateau where the decline is much slower, and stais stationary with a ratio higher than one, in the same way as was seen before.
+
+These tho regimes, duration and notability need not take the same time, and will probably vary along time. We have also examined the cases of three other memes: from left to right, the death of Robert Vaughn in November 2016 and Carrie Fisher and George Michael in December 2016. Our intention was, looking at these events taking place a few months before, if there is any variation. 
 
 ```{r carrie,echo=FALSE,fig.width=2.75, fig.height=4,fig.align='top'}
 # Vaughn
@@ -292,6 +294,8 @@ george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
                     visits=c(george.2016$V1,george.2017$V1))
 ggplot(george.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
+
+Let us first look at the first chart on the left, representing visits of the Robert Vaughn page. 
 
 ```{r winona,echo=FALSE,fig.width=4,fig.align='top'}
 # Winona Ryder
