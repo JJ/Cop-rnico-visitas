@@ -24,21 +24,21 @@ abstract:  "The Wikipedia is a web portal created by users and its
 
 The so called “Slashdot Effect”
 [@adler1999slashdot,@halavais2001slashdot], known since the end of the
-90s, is the name attributed the increase in pageviews that the
+90s, is the name attributed to the increase in pageviews that the
 websites experience when mentioned by publications
 like [Slashdot](http://slashdot.org), one of the most visited in the
 area of technology and especially programming. This effect provokes a
 peak in visits, especially directed to a single webpage, that in a lot
 of cases and more obscure ages in which there were not any publication
-of content networks had a similar effect of a denial of service
+of content networks, had a similar effect of a denial of service
 attack. In Spain we have also referred to the “Efecto Menéame”
 [@dans2008anatomia], because of the influence of this aggregator of
 news and even, before and in a lesser measure, the "Efecto Barrapunto"
-[@blanco2009blog] originated by mentions the web Barrapunto.com, a
+[@blanco2009blog] originated by mentions to the web Barrapunto.com, a
 Spanish Slashdot. 
 
 However and to the extent of our knowledge, until now there has not
-been many studies analising a similar effect provoked by mentions in
+been many studies analising a similar effect aroused by mentions in
 social networks, maybe due to the fact that such a effect is not
 caused by a single website and might be eventually directed to many
 different pages; even lesser is the effect they have in the search or
@@ -46,7 +46,7 @@ mindshare of the concepts. Indeed, web analytics is currently far more
 complex and generally the visits on a page, say, of a newspaper or
 ecommerce site are not public. And besides, instead of studying the
 effect of a single link, nowadays it is of more interest to study the
-topics that become in the social networks. However, the effect these
+topics that pop up in the social networks. However, the effect these
 have in the mindshare of the public and its behaviour while surfing
 the Net has not received so much attention as the behavior of the
 trending topics themselves. 
@@ -69,9 +69,9 @@ number of visits. In this article, that closes the series, we try to find the ca
 other phenomenons of visits to the Wikipedia which have happenned in a
 similar time frame.
 
-The rest of the paper is organised in the following way: next we present
+The rest of the paper is organised in the following way: first we present
 the methodology that has been followed in order to capture and study
-the data is presented. In the followint section the visits to the
+the data is presented. In the following section the visits to the
 Wikipedia page of Copernico and other
 related webpages is analized, along with the evolution in its
 ranking of viewed pages in the Wikipedia. We will also examine the
@@ -82,7 +82,7 @@ several reasons. Finally, we will draw some conclusions.
 
 The Wikipedia, through its interface, allows acces to the visits of each and every one of the different pages created in it. It is a REST interface which can be directly accessed to. We do it thanks to a script that, as the rest of data and programmes, is free software and hence can be downloaded from the page that follows the conclusions and has also been shown in [@Merelo2017:figshare]. The script uses `curl` for downloading the file, just by codifying as URL th name of the page, next to `all-agents`, and selecting as parameters the two dates in which we are interested, from the start of 2017 until now. Owing to the fact that this downloads a file in JSON, we pull the data we are interested in out by means of the `jq` utility, that allows to make complex searchs int JSON files: the views, and we put it in data files. Same for downloading the views of all the pages we mention in this article.
 
-Similar scripts are used so that the visits of the pages referenced are obtained. Nonetheless, in order to extract the ranking of the one thousand most visited pages, a script that gets the position in the ranking and the number of visits, along with the title of the article, is used. Then, the information is filtered, leaving solely the articles that are in the ranking, deleting special pages. Furthermore the ranking is one again calculated. Last, these rankings are processed to calculate the evolution in the position of the page as the days go by, saving in a file a number with the position that a specific page occupies each day.
+Similar scripts are used so that the visits of the pages referenced are obtained. Nonetheless, in order to extract the ranking of the one thousand most visited pages, a script that gets the position in the ranking and the number of visits, along with the title of the article, is used. Then, the information is filtered, leaving solely the articles that are in the ranking, deleting special pages. Furthermore the ranking is once again calculated. Last, these rankings are processed in order to determine the evolution in the position of the page as the days go by, saving in a file a number with the position that a specific page occupies each day.
 The result of the data is shown next:
 
 ## Visits to the page of Nicolás Copérnico and other related pages
@@ -135,11 +135,11 @@ hc.ratios <- data.frame( dia=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
 ggplot(hc.ratios,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-In the year 2016 there is a rate inferior to 2, consequently the page of the heliocentric theory receives more or less half the visits that Copérnico´s, with little variations. We suppose that there is more interest in the character than in its contribution, though not a lot. On the other hand, when the issue “Copérnico-Ojeda" breaks out, all of a sudden the people get curious about hte character, without caring much about his contribution to the scientific world. It is to important to point out that we don´t know whether they are the same people that visit the webpage, because of the fact that the path they follow in Wikipedia is not in our knowledge. Anyway, it is reasonable to suppose that a paramount percentage of the people that visit whichever of the pages will end up following the links in order to visit the other one. 
+In the year 2016 there is a rate inferior to 2, consequently the page of the heliocentric theory receives more or less half the visits that Copérnico´s, with little variations. We suppose that there is more interest in the character than in its contribution, though not a lot. On the other hand, when the issue “Copérnico-Ojeda" breaks out, all of a sudden people get curious about the character, without caring much about his contribution to the scientific world. It is important to point out that we don´t know whether they are the same people that visit the webpage, because of the fact that the path they follow in Wikipedia is not of our knowledge. Anyway, it is reasonable to suppose that a paramount percentage of the people that visit whichever of the pages will end up following the links in order to visit the other one. 
 
 The link to the theory appears in the first lines of Copérnico´s page and it is the thirteenth link from the start of the page, while Copérnico shows up int the second paragraph of the theory page, being the tenth now.
 
-Let´s also see another page, Galileo Galilei´s, who spread the heliocentric theory. It does not materialize in any way in the incidet but can be appealing to study the interest these kind of pages have and whether there is a offshoot of interest from one to another.
+Let´s also see another page, Galileo Galilei´s, who spread the heliocentric theory. It does not materialize in any way in the incident but it can be appealing to study the interest these kind of pages have and whether there is a offshoot of interest from one to another.
 
 ```{r galileo,echo=FALSE}
 galileo.2016 <- read.table('datos/2016-galileo.dat')
@@ -150,7 +150,7 @@ galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
 ggplot(galileo.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Apart from the curiosity on how do they evolve in the same way, with a considerable drop the seventh day, there is neither an obvious tendency nor can we suppose that pages of this kind of content could have an increased interest. In fact, the twelfth day there were less visits in Galileo´s page than last year. Although there is a chance of a transfer of attention and hence of visits from one to another, since Galileo´s is linked to Copérnicos, and as there aren´t changes in the same way as in Copérnico´s rules out a sudden interest in the Renaissance Science and the heliocentric theory like a cause of the rise in visits that will be then attributable to the incident.
+Apart from the curiosity on how do they evolve in the same way, with a considerable drop the seventh day, there is neither an obvious tendency nor can we suppose that pages of this kind of content could have an increased interest. In fact, the twelfth day there were less visits in Galileo´s page than last year. Although there is a chance of a transfer of attention and hence of visits from one to another, since Galileo´s is linked to Copérnico´s, and as there aren´t changes in the same way as in Copérnico´s, a sudden interest in the Renaissance Science and the heliocentric theory like a cause of the rise in visits that will be then attributable to the incident is the ruled out.
 
 We also examine the visits to the page of Meryl Streep, whose speech during the Golden Globes had a considerable impact, in the same way as the elected president´s reaction did. In this case it is an example of a page that on its own has a lot of visits:
 
@@ -229,12 +229,12 @@ ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ g
 ranking.08 <- fromJSON("datos/ranking-080117-filtrado.json")
 ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
 ```
-From not being between the 1000 most visited pages the day before, it has entered directly to the number 4, slightly behind the Three Kings on the day 7 and th film that apparently was on TV, Captain Phillips. The following day, day 9, Copernico´s article dropped to the 49th position in the filtered ranking. From there it fell to the 139th, 334th and eventually disappeared of the 1000 most visited pages of the Wikipedia. The page about the heliocentric theory was just the first two days, in the positions 215 and 393, to disappear the next day.
+From not being between the 1000 most visited pages the day before, it has entered directly to the number 4, slightly behind the Three Kings on the day 7 and the film that apparently was on TV, Captain Phillips. The following day, day 9, Copernico´s article dropped to the 49th position in the filtered ranking. From there it fell to the 139th, 334th and eventually disappeared of the 1000 most visited pages of the Wikipedia. The page about the heliocentric theory was just the first two days, in the positions 215 and 393, to disappear the next day.
 The other pages naturally have their explanation, though it is quite remarkable the relatively unknown Sandford Fleming, who reached such position because of [being the Google Doodle of the day](https://www.google.com/doodles/sandford-flemings-190th-birthday).
 
 # Conclussion
 
-The visits per day are multiplied by 20, more or less, the first day. The following days it loses interest, being the duration of the phenomenon approximately a week, indeed the lifetime of a meme, at least nowadays, in this country and for this type of memes. With solely a name or an identifiable person. Therefore, the data obtained for Copernico as well as similar incidents like Meryl Streep´s, seem to confirm these results that presumably will only have an universal statistic value when they are reproduced for a greater range of cases.
+The visits per day are multiplied by 20, more or less, the first day. The following days it loses interest, being the duration of the phenomenon approximately a week, indeed the lifetime of a meme, at least nowadays, in this country and for this type of memes, with solely a name or an identifiable person. Therefore, the data obtained for Copernico as well as similar incidents like Meryl Streep´s, seem to confirm these results that presumably will only have an universal statistic value when they are reproduced for a greater range of cases.
 In addition these memes don´t tend to have much *depth*, being relegated to just a page or even to the first paragraph of it. It doesn´t seem as if the interest was spread to other concepts or people linked to it. As to the global importance of the mental occupation of the Internet´s public, it depends greatly on the initial interest of the person. The visits to the page of Meryl Streep, for instance, reach a far higher level and its position in the ranking is kept for more time, also owing to the fact that it was already between the 1000 most visited pages of the Spanish Wikipedia.
 
 ```{r meryl-cop,echo=FALSE}
