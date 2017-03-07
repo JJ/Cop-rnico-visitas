@@ -259,7 +259,15 @@ john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
 ggplot(john.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
-```{r carrie,echo=FALSE,fig.width=4,fig.align='center'}
+```{r carrie,echo=FALSE,fig.width=2.75, fig.height=4,fig.align='top'}
+# Vaughn
+vaughn.2016 <- read.table('datos/Vaughn-2015.dat')
+vaughn.2017 <- read.table('datos/Vaughn-2016.dat')
+vaughn.datos <- data.frame( dia=c(1:nrow(vaughn.2016),1:nrow(vaughn.2017)),
+                    year=c(rep('2015',nrow(vaughn.2016)),rep('2016',nrow(vaughn.2017))),
+                    visits=c(vaughn.2016$V1,vaughn.2017$V1))
+ggplot(vaughn.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+
 carrie.2016 <- read.table('datos/Carrie-Fisher-2016.dat')
 carrie.2017 <- read.table('datos/Carrie-Fisher-2017.dat')
 carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
@@ -273,8 +281,10 @@ george.2017 <- read.table('datos/George-Michael-2017.dat')
 george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
                     year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
                     visits=c(george.2016$V1,george.2017$V1))
-ggplot(george.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(george.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+```
 
+```{r winona,echo=FALSE,fig.width=4,fig.align='top'}
 # Winona Ryder
 winona.2016 <- read.table('datos/Winona_Ryder-2016.dat')
 winona.2017 <- read.table('datos/Winona_Ryder-2017.dat')
@@ -283,15 +293,8 @@ winona.datos <- data.frame( dia=c(1:nrow(winona.2016),1:nrow(winona.2017)),
                     visits=c(winona.2016$V1,winona.2017$V1))
 ggplot(winona.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 
-# Vaughn
-vaughn.2016 <- read.table('datos/Vaughn-2015.dat')
-vaughn.2017 <- read.table('datos/Vaughn-2016.dat')
-vaughn.datos <- data.frame( dia=c(1:nrow(vaughn.2016),1:nrow(vaughn.2017)),
-                    year=c(rep('2016',nrow(vaughn.2016)),rep('2017',nrow(vaughn.2017))),
-                    visits=c(vaughn.2016$V1,vaughn.2017$V1))
-ggplot(vaughn.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 
-# Vaughn
+# Paloma Chamorro
 paloma.2016 <- read.table('datos/Paloma_Chamorro-2016.dat')
 paloma.2017 <- read.table('datos/Paloma_Chamorro-2017.dat')
 paloma.datos <- data.frame( dia=c(1:nrow(paloma.2016),1:nrow(paloma.2017)),
