@@ -173,12 +173,39 @@ carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
                     year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
                     visitas=c(carrie.2016$V1,carrie.2017$V1))
 ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
-george.2016 <- read.table('datos/George-Michael-2016.dat')
+
+# George Michael
+george.2016 <- read.table('datos/George--2016.dat')
 george.2017 <- read.table('datos/George-Michael-2017.dat')
 george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
                     year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
                     visitas=c(george.2016$V1,george.2017$V1))
 ggplot(george.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
+# Wynona Ryder
+wynona.2016 <- read.table('datos/Wynona_Ryder-2016.dat')
+wynona.2017 <- read.table('datos/Wynona_Ryder-2017.dat')
+wynona.datos <- data.frame( dia=c(1:nrow(wynona.2016),1:nrow(wynona.2017)),
+                    year=c(rep('2016',nrow(wynona.2016)),rep('2017',nrow(wynona.2017))),
+                    visitas=c(wynona.2016$V1,wynona.2017$V1))
+ggplot(wynona.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
+# Vaughn
+vaughn.2016 <- read.table('datos/Vaughn-2016.dat')
+vaughn.2017 <- read.table('datos/Vaughn-2017.dat')
+vaughn.datos <- data.frame( dia=c(1:nrow(vaughn.2016),1:nrow(vaughn.2017)),
+                    year=c(rep('2016',nrow(vaughn.2016)),rep('2017',nrow(vaughn.2017))),
+                    visitas=c(vaughn.2016$V1,vaughn.2017$V1))
+ggplot(vaughn.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
+# Vaughn
+paloma.2016 <- read.table('datos/Paloma_Chamorro-2016.dat')
+paloma.2017 <- read.table('datos/Paloma_Chamorro-2017.dat')
+paloma.datos <- data.frame( dia=c(1:nrow(paloma.2016),1:nrow(paloma.2017)),
+                    year=c(rep('2016',nrow(paloma.2016)),rep('2017',nrow(paloma.2017))),
+                    visitas=c(paloma.2016$V1,paloma.2017$V1))
+ggplot(paloma.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
 ```
 
 On the other hand, the graph ressembles a witch´s hat, with a noteworthy peak and a more gradual descense in the number of visits in a week´s time. Although to the date it has not returned to the original number of views, it is to be supposed that it will take place in more or less in the same period as the page we started studying, hence  seven days for the duration of the Twitter effect in the  notoriety of a public figure and the visits to its Wikipedia pages.
