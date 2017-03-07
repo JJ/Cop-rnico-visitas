@@ -6,17 +6,17 @@ output:
   pdf_document:
     keep_tex: true
 bibliography: refs.bib
-abstract:  "The wikipedia is a website created by users and its
-  simplicity, references and also the inclusion as insets of their
-  introduction in Google search results have made it the go-to place
-  to find out about events or persons. Besides, its open interface
+abstract:  "The Wikipedia is a web portal created by users and its
+  simplicity, references and also the inclusion as insets 
+  introductory paragraphs for their pages in Google search results have made it the go-to place
+  to find out about current events or persons featured in them. Besides, its open application programming interface (API)
   allows any user to know about the number of visits some particular
   page has. In this paper, after certain events that made Copernicus a
-  viral meme, we study the intensity of the increment of visits to his
-  page, other pages related to it. Using pages related to other persons
-  as a comparison, we try to establish a typical duration of notoriety,
+  viral meme in Spain, we study the intensity and duration of the increment of visits to his
+  page and other pages related to the event. Using pages related to other persons
+  as a comparison, we try to establish a typical duration of notoriety achieved through social networks,
   mainly comparing with visits in previous years in the same dates. We
-  conclude that a 7 day duration is the mode, something relatively
+  conclude that a 7 day duration is the statistical mode and that this duration is relatively
   independent of the initial increase in the number of visits."
 ---
 
