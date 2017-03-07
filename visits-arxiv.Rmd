@@ -241,7 +241,7 @@ see next what happens to other similar pages.
 
 ## Duration of notability in other Wikipedia pages. 
 
-We also examine the visits to the page of Meryl Streep, whose speech during the Golden Globes had a considerable impact, in the same way as the elected president´s reaction did. In this case it is an example of a page that on its own has a lot of visits:
+We also examine the visits to the page of Meryl Streep, whose speech during the Golden Globes had a considerable impact, in the same way as the elected president´s reaction did. In this case it is an example of a page that on its own has a lot of visits. We plot it side by side the visits to the page of John Hurt, who died on January 21st, 2017. 
 
 ```{r meryl,echo=FALSE,fig.width=4,fig.align='top'}
 meryl.2016 <- read.table('datos/Meryl_Streep-2016.dat')
@@ -258,6 +258,15 @@ john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
                     visits=c(john.2016$V1,john.2017$V1))
 ggplot(john.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
+
+The number of visits reached by John Hurt's wikipedia page is almost 3 times as high as the one reached by Meryl Streep. The mechanism at work here must go in the opposite direction of fame: John Hurt was not probably known by name, so people looked him up much more than Meryl Streep, who is a household name and whose movies are shown continously, even in Spanish TV channels. But even with the different scales, the *relaxation time* hovers around 7 days, a few more in the case of Meryl Streep (left). Besides, when the visits plateau the *new normal* is slightly superior to the visits achieved in the previous year or before the incident that initiated the sudden fame. Let us see this in the second case, the John Hurt page
+
+```{r ratiojohn,echo=FALSE}
+ratio <- data.frame( dia=c(1:nrow(john.2016)),ratio=john.2017$V1/john.2016$V1)
+ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
+```
+
+
 
 ```{r carrie,echo=FALSE,fig.width=2.75, fig.height=4,fig.align='top'}
 # Vaughn
