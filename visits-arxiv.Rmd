@@ -295,7 +295,9 @@ george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
 ggplot(george.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
-Let us first look at the first chart on the left, representing visits of the Robert Vaughn page. 
+Let us first look at the first chart on the left, representing visits of the Robert Vaughn page. Being not so well known in pop culture, the peak reached is relatively small, but still visits multiplied 100-fold when his death was known. Carrie Fisher (center) and George Michael (right), being better known, had a higher level of visits, but the visits reached multiply 200-fold, and in this case the two regimes can be observed: sharp decrease that lasts 10 days followd by a plateau where the ratio to visits before the event  is around 2-3. The same type of behavious can be observed about the visits to the page of George Michael. 
+
+Finally, let us look at similar events that happened later along the time line: the viral sensation of Winona Ryder showing a range of facial expressions during a gala (left), and the death of a journalist and famous 80s musical TV anchor in Spain, Paloma Chamorro (right).
 
 ```{r winona,echo=FALSE,fig.width=4,fig.align='top'}
 # Winona Ryder
@@ -316,25 +318,18 @@ paloma.datos <- data.frame( dia=c(1:nrow(paloma.2016),1:nrow(paloma.2017)),
 ggplot(paloma.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 
 ```
+The chart on the left, although with some *noise*, shows more or less the same phenomenon of a sharp peak followed by rapid decrease in visits, that take between 7 and 10 days. The lower number of visits reached probably accounts for the fact that the meme was self-contained (a series of faces) and did not need additional information on the person. However, the one on the right is entirely familiar in scale and size, with *rebounds* probably due to published obituaries and settling to a number of visits that is slightly superior than originally. 
 
-On the other hand, the graph ressembles a witch´s hat, with a noteworthy peak and a more gradual descense in the number of visits in a week´s time. Although to the date it has not returned to the original number of views, it is to be supposed that it will take place in more or less in the same period as the page we started studying, hence  seven days for the duration of the Twitter effect in the  notoriety of a public figure and the visits to its Wikipedia pages.
+Eventually, all visit graphs ressemble a "witch´s hat"", with a noteworthy peak and a more gradual decrease in the number of visits in approximately a week´s time, although usually a bit longer. We will examine this findings in the next section, where we present our conclussions. 
 
-# Conclussion
+## Conclussion
 
-The visits per day are multiplied by 20, more or less, the first day. The following days it loses interest, being the duration of the phenomenon approximately a week, indeed the lifetime of a meme, at least nowadays, in this country and for this type of memes, with solely a name or an identifiable person. Therefore, the data obtained for Copernico as well as similar incidents like Meryl Streep´s, seem to confirm these results that presumably will only have an universal statistic value when they are reproduced for a greater range of cases.
-In addition these memes don´t tend to have much *depth*, being relegated to just a page or even to the first paragraph of it. It doesn´t seem as if the interest was spread to other concepts or people linked to it. As to the global importance of the mental occupation of the Internet´s public, it depends greatly on the initial interest of the person. The visits to the page of Meryl Streep, for instance, reach a far higher level and its position in the ranking is kept for more time, also owing to the fact that it was already between the 1000 most visited pages of the Spanish Wikipedia.
+By examining the visits of Wikipedia pages through its open API we intend to look for patterns in these visits and, through them, establish the duration of Internet memes, assuming that when one particular person or concept becomes noticeable, people will check out their Wikipedia page as first source of information.
 
-```{r meryl-cop,echo=FALSE}
-meryl.cop.datos <- data.frame( dia=c(1:nrow(meryl.2017),1:nrow(datos.2017)),
-                      year=c(rep('Meryl Streep',nrow(meryl.2017)),rep('Nicolás Copérnico',nrow(datos.2017))),
-                    visits=c(meryl.2017$V1,datos.2017$V1))
-ggplot(meryl.cop.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
-```
+What we have found by looking at nine different pages corresponding to 9 different persons that have become trending topics in social networks, but specially in Spain, starting with a very local event that actually initiated this research. What we have found analyzing visit data is that noteworthiness lasts for at least a week, and sometimes a bit more, up to 10 days; from then on, visits go back to the usual rate but at a much slower pace. The headline would thus be "Fame in social networks lasts for only a week", but this would have some caveats that would be worth checking out in the future, such as the relationship with the nature of the meme itself (due to an unexpected event in the life of the person, for instance, or some other thing). A secondary finding is that the magnitude of the increase in visits is related to prior fame: "those who have, will get more", reaching a much higher ration between prior and post-event visits. 
 
-This also takes into account the fact that the *Ojeda-Copérnico incident* has awaken interest mainly in Spain, with little or none out of its politic impact. However, what happened to Meryl Streep has had  repercussion on the whole world, of course including South America, where the bigger amount of  visitors of the Spanish Wikipedia is gathered. Nevertheless, initially Meryl Streep´s visits doubled Nicolas Copernico´s, and when its notoriety started, her visits were multiplied by 25, not by 15 as in the other case.
-As a conclussion, the rise in the notoriety of an incident with politic and local connotations is relatively little, compared to a cultural incident with certain politic connotations, which is global. That mindshare does not have an influence in the length of the notoriety, in both cases of about a week. 
-## Note
-All the data and necessary files can be found at http://github.com/JJ/Cop-rnico-visitas, and can be used with a free license. We will be very grateful given that the person that uses them references this article.
+In general, the use of this API by Wikipedia opens a whole world of possibilities for the research of collective behavior. One of them would be to analyze what part of these visits were done using different devices, and which ones correspond to edits or simple visits. The difference between the increment of visits of life-changing events or other kind of memes might be due to this fact. This could be an interesting venue of research in the near future, as well as checking if there is in fact some change in this one-week duration of memes. 
+
 
 ## Note
 
