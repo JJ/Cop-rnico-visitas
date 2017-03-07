@@ -24,21 +24,21 @@ abstract:  "The Wikipedia is a web portal created by users and its
 
 The so called “Slashdot Effect”
 [@adler1999slashdot,@halavais2001slashdot], known since the end of the
-90s, is the name attributed the increase in pageviews that the
+90s, is the name attributed to the increase in pageviews that the
 websites experience when mentioned by publications
 like [Slashdot](http://slashdot.org), one of the most visited in the
 area of technology and especially programming. This effect provokes a
 peak in visits, especially directed to a single webpage, that in a lot
 of cases and more obscure ages in which there were not any publication
-of content networks had a similar effect of a denial of service
+of content networks, had a similar effect of a denial of service
 attack. In Spain we have also referred to the “Efecto Menéame”
 [@dans2008anatomia], because of the influence of this aggregator of
 news and even, before and in a lesser measure, the "Efecto Barrapunto"
-[@blanco2009blog] originated by mentions the web Barrapunto.com, a
+[@blanco2009blog] originated by mentions to the web Barrapunto.com, a
 Spanish Slashdot. 
 
 However and to the extent of our knowledge, until now there has not
-been many studies analising a similar effect provoked by mentions in
+been many studies analising a similar effect aroused by mentions in
 social networks, maybe due to the fact that such a effect is not
 caused by a single website and might be eventually directed to many
 different pages; even lesser is the effect they have in the search or
@@ -46,7 +46,7 @@ mindshare of the concepts. Indeed, web analytics is currently far more
 complex and generally the visits on a page, say, of a newspaper or
 ecommerce site are not public. And besides, instead of studying the
 effect of a single link, nowadays it is of more interest to study the
-topics that become in the social networks. However, the effect these
+topics that pop up in the social networks. However, the effect these
 have in the mindshare of the public and its behaviour while surfing
 the Net has not received so much attention as the behavior of the
 trending topics themselves. 
@@ -69,9 +69,9 @@ number of visits. In this article, that closes the series, we try to find the ca
 other phenomenons of visits to the Wikipedia which have happenned in a
 similar time frame.
 
-The rest of the paper is organised in the following way: next we present
+The rest of the paper is organised in the following way: first we present
 the methodology that has been followed in order to capture and study
-the data is presented. In the followint section the visits to the
+the data is presented. In the following section the visits to the
 Wikipedia page of Copernico and other
 related webpages is analized, along with the evolution in its
 ranking of viewed pages in the Wikipedia. We will also examine the
@@ -79,6 +79,7 @@ visits to the pages of other persons that have become notorious due to
 several reasons. Finally, we will draw some conclusions. 
 
 ## Methodology
+
 
 The Wikipedia, through its application programming interface (API),
 allows acces to the visits of each and every one of the different
@@ -108,7 +109,8 @@ shell scripts that download an URL and the use of `jq`.
  file a number with the position that a specific page occupies each
  day. 
  
-The result of analyzing the data are shown
+The results of analyzing the data are shown in the next section.
+
 
 ## Visits to the page of Nicolás Copérnico and other related pages
 
@@ -260,41 +262,46 @@ carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
                     year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
                     visitas=c(carrie.2016$V1,carrie.2017$V1))
 ggplot(carrie.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
-george.2016 <- read.table('datos/George-Michael-2016.dat')
+
+# George Michael
+george.2016 <- read.table('datos/George--2016.dat')
 george.2017 <- read.table('datos/George-Michael-2017.dat')
 george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
                     year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
                     visitas=c(george.2016$V1,george.2017$V1))
 ggplot(george.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
+# Wynona Ryder
+wynona.2016 <- read.table('datos/Wynona_Ryder-2016.dat')
+wynona.2017 <- read.table('datos/Wynona_Ryder-2017.dat')
+wynona.datos <- data.frame( dia=c(1:nrow(wynona.2016),1:nrow(wynona.2017)),
+                    year=c(rep('2016',nrow(wynona.2016)),rep('2017',nrow(wynona.2017))),
+                    visitas=c(wynona.2016$V1,wynona.2017$V1))
+ggplot(wynona.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
+# Vaughn
+vaughn.2016 <- read.table('datos/Vaughn-2016.dat')
+vaughn.2017 <- read.table('datos/Vaughn-2017.dat')
+vaughn.datos <- data.frame( dia=c(1:nrow(vaughn.2016),1:nrow(vaughn.2017)),
+                    year=c(rep('2016',nrow(vaughn.2016)),rep('2017',nrow(vaughn.2017))),
+                    visitas=c(vaughn.2016$V1,vaughn.2017$V1))
+ggplot(vaughn.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
+# Vaughn
+paloma.2016 <- read.table('datos/Paloma_Chamorro-2016.dat')
+paloma.2017 <- read.table('datos/Paloma_Chamorro-2017.dat')
+paloma.datos <- data.frame( dia=c(1:nrow(paloma.2016),1:nrow(paloma.2017)),
+                    year=c(rep('2016',nrow(paloma.2016)),rep('2017',nrow(paloma.2017))),
+                    visitas=c(paloma.2016$V1,paloma.2017$V1))
+ggplot(paloma.datos,aes(x=dia,y=visitas,group=year,col=year))+geom_line()+theme_tufte()
+
 ```
 
 On the other hand, the graph ressembles a witch´s hat, with a noteworthy peak and a more gradual descense in the number of visits in a week´s time. Although to the date it has not returned to the original number of views, it is to be supposed that it will take place in more or less in the same period as the page we started studying, hence  seven days for the duration of the Twitter effect in the  notoriety of a public figure and the visits to its Wikipedia pages.
 
-# Evolution in the ranking of the most visited pages
-
-The wikipedia also offers on its API a ranking of the one thousand
-most visited pages, extracted with a script that is also in the
-repository and is shown at [@Merelo2017:figshare]; this script
-generates, in JSON format, a file with the visits, the position of
-each article and the article itself. This is repited for the rest of
-the days and next the file is filtered leaving only the Wikipedia
-articles and deleting special pages as the input or the search page. 
-
-In the next script we read it and draw for two consecutive days starting on the seventh one. Moreover, the special pages of the Wikipedia are erased leaving only the articles.
-
-```{r ranking,echo=FALSE}
-library(jsonlite)
-ranking.07 <- fromJSON("datos/ranking-070117-filtrado.json")
-ggplot(ranking.07[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
-ranking.08 <- fromJSON("datos/ranking-080117-filtrado.json")
-ggplot(ranking.08[1:20,],aes(x=puesto,y=visitas)) + geom_bar(stat="identity")+ geom_text(aes(label=articulo),color='blue',angle=90)
-```
-From not being between the 1000 most visited pages the day before, it has entered directly to the number 4, slightly behind the Three Kings on the day 7 and th film that apparently was on TV, Captain Phillips. The following day, day 9, Copernico´s article dropped to the 49th position in the filtered ranking. From there it fell to the 139th, 334th and eventually disappeared of the 1000 most visited pages of the Wikipedia. The page about the heliocentric theory was just the first two days, in the positions 215 and 393, to disappear the next day.
-The other pages naturally have their explanation, though it is quite remarkable the relatively unknown Sandford Fleming, who reached such position because of [being the Google Doodle of the day](https://www.google.com/doodles/sandford-flemings-190th-birthday).
-
 # Conclussion
 
-The visits per day are multiplied by 20, more or less, the first day. The following days it loses interest, being the duration of the phenomenon approximately a week, indeed the lifetime of a meme, at least nowadays, in this country and for this type of memes. With solely a name or an identifiable person. Therefore, the data obtained for Copernico as well as similar incidents like Meryl Streep´s, seem to confirm these results that presumably will only have an universal statistic value when they are reproduced for a greater range of cases.
+The visits per day are multiplied by 20, more or less, the first day. The following days it loses interest, being the duration of the phenomenon approximately a week, indeed the lifetime of a meme, at least nowadays, in this country and for this type of memes, with solely a name or an identifiable person. Therefore, the data obtained for Copernico as well as similar incidents like Meryl Streep´s, seem to confirm these results that presumably will only have an universal statistic value when they are reproduced for a greater range of cases.
 In addition these memes don´t tend to have much *depth*, being relegated to just a page or even to the first paragraph of it. It doesn´t seem as if the interest was spread to other concepts or people linked to it. As to the global importance of the mental occupation of the Internet´s public, it depends greatly on the initial interest of the person. The visits to the page of Meryl Streep, for instance, reach a far higher level and its position in the ranking is kept for more time, also owing to the fact that it was already between the 1000 most visited pages of the Spanish Wikipedia.
 
 ```{r meryl-cop,echo=FALSE}
