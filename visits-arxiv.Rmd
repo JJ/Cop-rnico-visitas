@@ -51,13 +51,34 @@ have in the mindshare of the public and its behaviour while surfing
 the Net has not received so much attention as the behavior of the
 trending topics themselves. 
 
-At the start of 2017, an anecdote in a Three Kings´ parade in Madrid, in which a video locutor referred to a character as Colon and this answered “I am Copernico!” in an amusing tone, [as is narrated in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html), gave way to a storm of memes, extended on the next days when a journalist and a politician discussed in a tv programme about what did Copernico really do.
+At the start of 2017, an anecdote in a Wise Men from Orient parade in
+Madrid, in which a video locutor referred to a character in a float as
+Colon, to which he answered “I am Copernico!” in an amusing
+tone,
+[as is narrated in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html),
+gave way to a storm of memes, which increased on the following days
+when a journalist and a politician discussed in a TV programme about
+what did Copernico really do. 
 
-In a series of articles [merelo17, @merelo17:2, @Merelo2017:figshare] that show the temporary evolution of this mindshare through the visits to the Wikipedia page of Copernico [@wiki:Copernico] we have analized the change in the number of visits, especially looking for the duration of this phenomenon by means of studying the daily modifications. In this article, that closes the series, we look forward to finding the causes of that duration, comparing it with other phenomenons of visits to the Wikipedia which have happenned rather simultaneously.
+In a series of articles and figures written in Spanish [merelo17, @merelo17:2, @Merelo2017:figshare]
+that show the temporary evolution of this mindshare through the visits
+to the Wikipedia page of Copernico [@wiki:Copernico] we have analyzed
+the change in the number of visits, especially looking for the
+duration of this phenomenon by means of studying the daily
+number of visits. In this article, that closes the series, we try to find the causes of that duration, comparing it with
+other phenomenons of visits to the Wikipedia which have happenned in a
+similar time frame.
 
-The project that is left is organised in the following way: Further on the methodology that has been followed in order to capture and study the data is presented; next the visits to the Wikipedia page and other related webpages is analized, all along with the evolution in its ranking of viewed pages in the Wikipedia. Finally, we will draw some conclusions.
+The rest of the paper is organised in the following way: next we present
+the methodology that has been followed in order to capture and study
+the data is presented. In the followint section the visits to the
+Wikipedia page of Copernico and other
+related webpages is analized, along with the evolution in its
+ranking of viewed pages in the Wikipedia. We will also examine the
+visits to the pages of other persons that have become notorious due to
+several reasons. Finally, we will draw some conclusions. 
 
-# Methodology
+## Methodology
 
 The Wikipedia, through its interface, allows acces to the visits of each and every one of the different pages created in it. It is a REST interface which can be directly accessed to. We do it thanks to a script that, as the rest of data and programmes, is free software and hence can be downloaded from the page that follows the conclusions and has also been shown in [@Merelo2017:figshare]. The script uses `curl` for downloading the file, just by codifying as URL th name of the page, next to `all-agents`, and selecting as parameters the two dates in which we are interested, from the start of 2017 until now. Owing to the fact that this downloads a file in JSON, we pull the data we are interested in out by means of the `jq` utility, that allows to make complex searchs int JSON files: the views, and we put it in data files. Same for downloading the views of all the pages we mention in this article.
 
