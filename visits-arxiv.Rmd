@@ -55,12 +55,12 @@ At the start of 2017, an anecdote in a Wise Men from Orient parade in
 Madrid, in which a video locutor referred to a character in a float as
 Colon, to which he answered “I am Copernico!” in an amusing
 tone,
-[as is narrated in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html),
+[as is narrated (in Spanish) in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html),
 gave way to a storm of memes, which increased on the following days
 when a journalist and a politician discussed in a TV programme about
 what did Copernico really do. 
 
-In a series of articles and figures written in Spanish [merelo17, @merelo17:2, @Merelo2017:figshare]
+In a series of articles and figures written in Spanish [@merelo17, @merelo17:2, @Merelo2017:figshare,@copernicoooo]
 that show the temporary evolution of this mindshare through the visits
 to the Wikipedia page of Copernico [@wiki:Copernico] we have analyzed
 the change in the number of visits, especially looking for the
@@ -68,6 +68,13 @@ duration of this phenomenon by means of studying the daily
 number of visits. In this article, that closes the series, we try to find the causes of that duration, comparing it with
 other phenomenons of visits to the Wikipedia which have happenned in a
 similar time frame.
+
+As far as we know, there have been no studies that focus on the
+temporal dimension of an Internet meme. [@adamic2016information]
+focuses on how information evolves and how this evolution is time
+dependent, and [@naaman2011hip] analyzes other features such as the
+decay in the number of occurrences of trending topics and how people
+interact with it. 
 
 The rest of the paper is organised in the following way: first we present
 the methodology that has been followed in order to capture and study
@@ -322,11 +329,38 @@ The chart on the left, although with some *noise*, shows more or less the same p
 
 Eventually, all visit graphs ressemble a "witch´s hat"", with a noteworthy peak and a more gradual decrease in the number of visits in approximately a week´s time, although usually a bit longer. We will examine this findings in the next section, where we present our conclussions. 
 
-## Conclussion
+## Conclusion and discussion.
 
 By examining the visits of Wikipedia pages through its open API we intend to look for patterns in these visits and, through them, establish the duration of Internet memes, assuming that when one particular person or concept becomes noticeable, people will check out their Wikipedia page as first source of information.
 
-What we have found by looking at nine different pages corresponding to 9 different persons that have become trending topics in social networks, but specially in Spain, starting with a very local event that actually initiated this research. What we have found analyzing visit data is that noteworthiness lasts for at least a week, and sometimes a bit more, up to 10 days; from then on, visits go back to the usual rate but at a much slower pace. The headline would thus be "Fame in social networks lasts for only a week", but this would have some caveats that would be worth checking out in the future, such as the relationship with the nature of the meme itself (due to an unexpected event in the life of the person, for instance, or some other thing). A secondary finding is that the magnitude of the increase in visits is related to prior fame: "those who have, will get more", reaching a much higher ration between prior and post-event visits. 
+What we have found by looking at nine different pages corresponding to
+9 different persons that have become trending topics in social
+networks, but specially in Spain, starting with a very local event
+that actually initiated this research. What we have found analyzing
+visit data is that noteworthiness lasts for at least a week, and
+sometimes a bit more, up to 10 days; from then on, visits go back to
+the usual rate but at a much slower pace. The headline would thus be
+"Fame in social networks lasts for only a week", but this would have
+some caveats that would be worth checking out in the future, such as
+the relationship with the nature of the meme itself (due to an
+unexpected event in the life of the person, for instance, or some
+other thing). A secondary finding is that the magnitude of the
+increase in visits is related to prior fame: "those who have, will get
+more", reaching a much higher ration between prior and post-event
+visits. 
+
+The fact that the duration for this type of memes or trending topics
+is in a very narrow band is consistent with the findings of Adamic and
+coauthors [@adamic2016information], in the sense that memes evolve and
+its original intention or reference concepts change in time; they are
+also obviously substituted by other, more recent, events. The fast
+initial decay and lower decrease afterwards is also consistent with
+the study of [@naaman2011hip] over a wide range of trending topics,
+although no measurements on this duration are made. In this sense,
+this is the first study, although focused on a few and mostly regional
+events, that has focused on the duration and mid-term secondary
+effects of memes on society's mindshare as reflected in visits to
+Wikipedia pages. 
 
 In general, the use of this API by Wikipedia opens a whole world of possibilities for the research of collective behavior. One of them would be to analyze what part of these visits were done using different devices, and which ones correspond to edits or simple visits. The difference between the increment of visits of life-changing events or other kind of memes might be due to this fact. This could be an interesting venue of research in the near future, as well as checking if there is in fact some change in this one-week duration of memes. 
 
