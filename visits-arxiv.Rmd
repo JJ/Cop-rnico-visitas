@@ -1,7 +1,7 @@
 ---
 title: "Temporal evolution of notoriety of Wikipedia pages with origin in social networks"
-author: "JJ Merelo and Elena Merelo"
-date: "28 de February de 2017"
+author: "JJ Merelo-Guervós and Elena Merelo-Molina"
+date: "March 9th,2017"
 output:
   pdf_document:
     keep_tex: true
@@ -129,7 +129,7 @@ library(ggplot2)
 library(ggthemes)
 datos.2016 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2016.dat')
 datos.2017 <- read.table('datos/Nicol%C3%A1s_Cop%C3%A9rnico-2017.dat')
-datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
+datos <- data.frame( day=c(1:nrow(datos.2016),1:nrow(datos.2017)),
                     year=c(rep('2016',nrow(datos.2016)),rep('2017',nrow(datos.2017))),
                     visits=c(datos.2016$V1,datos.2017$V1))
 ```               
@@ -144,7 +144,7 @@ visits anyway. Comparing the visits for two years will help us
 discount that effect. 
 
 ```{r imagen,echo=FALSE}
-ggplot(datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(datos,aes(x=day,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 ```
 It is noticeable that, after reaching a peak the first day, it
 descends the second one and even quicklier the third
@@ -154,8 +154,8 @@ some variation also in the previous year, that is why we compare  the
 relationship between last and this year´s visits in the next chart.
 
 ```{r ratio,echo=FALSE}
-ratio <- data.frame( dia=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
-ggplot(ratio,aes(x=dia,y=ratio))+geom_line()+theme_tufte()
+ratio <- data.frame( day=c(1:nrow(datos.2016)),ratio=datos.2017$V1/datos.2016$V1)
+ggplot(ratio,aes(x=day,y=ratio))+geom_line()+theme_tufte()
 ```
 From an initial situation where the number of visits is similar,
 though slightly superior, it goes to having 20 times more visits,
@@ -173,10 +173,10 @@ a debate on TV.
 ```{r helio,echo=FALSE}
 hc.2016 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2016.dat')
 hc.2017 <- read.table('datos/Teor%C3%ADa_helioc%C3%A9ntrica-2017.dat')
-hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
+hc.datos <- data.frame( day=c(1:nrow(hc.2016),1:nrow(hc.2017)),
                     year=c(rep('2016',nrow(hc.2016)),rep('2017',nrow(hc.2017))),
                     visits=c(hc.2016$V1,hc.2017$V1))
-ggplot(hc.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(hc.datos,aes(x=day,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 ```
 The number of visits moves in a different scale and thus there are
 more fluctuations along the day. However, like in the previous case,
@@ -191,10 +191,10 @@ visit a web and the ones that visit the other. We have a look at it in the next 
 ```{r ratiohc,echo=FALSE}
 ratio.hc.2016 <- datos.2016/hc.2016
 ratio.hc.2017 <- datos.2017/hc.2017
-hc.ratios <- data.frame( dia=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
+hc.ratios <- data.frame( day=c(1:nrow(ratio.hc.2016),1:nrow(ratio.hc.2017)),
                     year=c(rep('2016',nrow(ratio.hc.2016)),rep('2017',nrow(ratio.hc.2017))),
                     visits=c(ratio.hc.2016$V1,ratio.hc.2017$V1))
-ggplot(hc.ratios,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(hc.ratios,aes(x=day,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
 In the year 2016 there is a rate inferior to 2, consequently the page
@@ -223,10 +223,10 @@ another.
 ```{r galileo,echo=FALSE}
 galileo.2016 <- read.table('datos/2016-galileo.dat')
 galileo.2017 <- read.table('datos/2017-galileo.dat')
-galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
+galileo.datos <- data.frame( day=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
                     year=c(rep('2016',nrow(galileo.2016)),rep('2017',nrow(galileo.2017))),
                     visits=c(galileo.2016$V1,galileo.2017$V1))
-ggplot(galileo.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(galileo.datos,aes(x=day,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
 Apart from the curiosity on how  do they evolve in the same way, with a
@@ -255,15 +255,15 @@ meryl.2016 <- read.table('datos/Meryl_Streep-2016.dat')
 meryl.2017 <- read.table('datos/Meryl_Streep-2017.dat')
 john.2016 <- read.table('datos/John_Hurt-2016.dat')
 john.2017 <- read.table('datos/John_Hurt-2017.dat')
-meryl.datos <- data.frame( dia=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
+meryl.datos <- data.frame( day=c(1:nrow(meryl.2016),1:nrow(meryl.2017)),
                     year=c(rep('2016',nrow(meryl.2016)),rep('2017',nrow(meryl.2017))),
                     visits=c(meryl.2016$V1,meryl.2017$V1))
-ggplot(meryl.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+ggplot(meryl.datos,aes(x=day,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 
-john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
+john.datos <- data.frame( day=c(1:nrow(john.2016),1:nrow(john.2017)),
                     year=c(rep('2016',nrow(john.2016)),rep('2017',nrow(john.2017))),
                     visits=c(john.2016$V1,john.2017$V1))
-ggplot(john.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+ggplot(john.datos,aes(x=day,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
 The number of visits reached by John Hurt's Wikipedia page is almost 3 times as high as the one reached by Meryl Streep. The mechanism at work here must go in the opposite direction of fame: John Hurt was not probably known by name, so people looked him up much more than Meryl Streep, who is a household name and whose movies are shown continuously, even in Spanish TV channels. But even with the different scales, the *relaxation time* hovers around 7 days, a few more in the case of Meryl Streep (left). Besides, when the visits plateau the *new normal* is slightly superior to the visits achieved in the previous year or before the incident that initiated the sudden fame. Let us see this in the second case, the John Hurt page.
@@ -281,25 +281,25 @@ These tho regimes, duration and notability need not take the same time, and will
 # Vaughn
 vaughn.2016 <- read.table('datos/Vaughn-2015.dat')
 vaughn.2017 <- read.table('datos/Vaughn-2016.dat')
-vaughn.datos <- data.frame( dia=c(1:nrow(vaughn.2016),1:nrow(vaughn.2017)),
+vaughn.datos <- data.frame( day=c(1:nrow(vaughn.2016),1:nrow(vaughn.2017)),
                     year=c(rep('2015',nrow(vaughn.2016)),rep('2016',nrow(vaughn.2017))),
                     visits=c(vaughn.2016$V1,vaughn.2017$V1))
-ggplot(vaughn.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+ggplot(vaughn.datos,aes(x=day,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 
 carrie.2016 <- read.table('datos/Carrie-Fisher-2016.dat')
 carrie.2017 <- read.table('datos/Carrie-Fisher-2017.dat')
-carrie.datos <- data.frame( dia=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
+carrie.datos <- data.frame( day=c(1:nrow(carrie.2016),1:nrow(carrie.2017)),
                     year=c(rep('2016',nrow(carrie.2016)),rep('2017',nrow(carrie.2017))),
                     visits=c(carrie.2016$V1,carrie.2017$V1))
-ggplot(carrie.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+ggplot(carrie.datos,aes(x=day,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 
 # George Michael
 george.2016 <- read.table('datos/George-Michael-2016.dat')
 george.2017 <- read.table('datos/George-Michael-2017.dat')
-george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
+george.datos <- data.frame( day=c(1:nrow(george.2016),1:nrow(george.2017)),
                     year=c(rep('2016',nrow(george.2016)),rep('2017',nrow(george.2017))),
                     visits=c(george.2016$V1,george.2017$V1))
-ggplot(george.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
+ggplot(george.datos,aes(x=day,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
 Let us first look at the first chart on the left, representing visits of the Robert Vaughn page. Being not so well known in pop culture, the peak reached is relatively small, but still visits multiplied 100-fold when his death was known. Carrie Fisher (center) and George Michael (right), being better known, had a higher level of visits, but the visits reached multiply 200-fold, and in this case the two regimes can be observed: sharp decrease that lasts 10 days followed by a plateau where the ratio to visits before the event  is around 2-3. The same type of behaviours can be observed about the visits to the page of George Michael. 
@@ -310,24 +310,24 @@ Finally, let us look at similar events that happened later along the time line: 
 # Winona Ryder
 winona.2016 <- read.table('datos/Winona_Ryder-2016.dat')
 winona.2017 <- read.table('datos/Winona_Ryder-2017.dat')
-winona.datos <- data.frame( dia=c(1:nrow(winona.2016),1:nrow(winona.2017)),
+winona.datos <- data.frame( day=c(1:nrow(winona.2016),1:nrow(winona.2017)),
                     year=c(rep('2016',nrow(winona.2016)),rep('2017',nrow(winona.2017))),
                     visits=c(winona.2016$V1,winona.2017$V1))
-ggplot(winona.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(winona.datos,aes(x=day,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 
 
 # Paloma Chamorro
 paloma.2016 <- read.table('datos/Paloma_Chamorro-2016.dat')
 paloma.2017 <- read.table('datos/Paloma_Chamorro-2017.dat')
-paloma.datos <- data.frame( dia=c(1:nrow(paloma.2016),1:nrow(paloma.2017)),
+paloma.datos <- data.frame( day=c(1:nrow(paloma.2016),1:nrow(paloma.2017)),
                     year=c(rep('2016',nrow(paloma.2016)),rep('2017',nrow(paloma.2017))),
                     visits=c(paloma.2016$V1,paloma.2017$V1))
-ggplot(paloma.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
+ggplot(paloma.datos,aes(x=day,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 
 ```
 The chart on the left, although with some *noise*, shows more or less the same phenomenon of a sharp peak followed by rapid decrease in visits, that take between 7 and 10 days. The lower number of visits reached probably accounts for the fact that the meme was self-contained (a series of faces) and did not need additional information on the person. However, the one on the right is entirely familiar in scale and size, with *rebounds* probably due to published obituaries and settling to a number of visits that is slightly superior than originally. 
 
-Eventually, all visit graphs resemble a "witch´s hat"", with a noteworthy peak and a more gradual decrease in the number of visits in approximately a week´s time, although usually a bit longer. We will examine this findings in the next section, where we present our conclusions. 
+Eventually, all visit graphs resemble a "witch´s hat", with a noteworthy peak and a more gradual decrease in the number of visits in approximately a week´s time, although usually a bit longer. We will examine this findings in the next section, where we present our conclusions. 
 
 ## Conclusion and discussion.
 
@@ -367,6 +367,6 @@ In general, the use of this API by Wikipedia opens a whole world of possibilitie
 
 ## Note
 
-All files, data and scripts needed to generate this paper are available at http://github.com/JJ/Cop-rnico-visitas and can be used with a free license. If you use in any scientific publication we are grateful for referencing this paper or the other papers working on the same data included in the bibliography. 
+All files, data and scripts needed to generate this paper are available at [the GitHub repository for this paper](http://github.com/JJ/Cop-rnico-visitas) and can be used with a free license. If you use in any scientific publication we are grateful for referencing this paper or the other papers working on the same data included in the bibliography. 
 
 ## References
