@@ -9,7 +9,7 @@ bibliography: refs.bib
 abstract:  "The Wikipedia is a web portal created by users and its
   simplicity, references and also the inclusion as insets 
   introductory paragraphs for their pages in Google search results have made it the go-to place
-  to find out about current events or persons featured in them. Besides, its open application programming interface (API)
+  to find out about current events or people featured in them. Besides, its open application programming interface (API)
   allows any user to know about the number of visits some particular
   page has. In this paper, after certain events that made Copernicus a
   viral meme in Spain, we study the intensity and duration of the increment of visits to his
@@ -37,16 +37,16 @@ news and even, before and in a lesser measure, the "Efecto Barrapunto"
 [@blanco2009blog] originated by mentions to the web Barrapunto.com, a
 Spanish Slashdot. 
 
-However and to the extent of our knowledge, until now there has not
+However, to the extent of our knowledge, until now there has not
 been many studies analising a similar effect aroused by mentions in
-social networks, maybe due to the fact that such a effect is not
+social networks, maybe due to the fact that such an effect is not
 caused by a single website and might be eventually directed to many
 different pages; even lesser is the effect they have in the search or
 mindshare of the concepts. Indeed, web analytics is currently far more
 complex and generally the visits on a page, say, of a newspaper or
 ecommerce site are not public. And besides, instead of studying the
 effect of a single link, nowadays it is of more interest to study the
-topics that pop up in the social networks. However, the effect these
+topics that pop up in the social networks. Nevertheless, the effect these
 have in the mindshare of the public and its behaviour while surfing
 the Net has not received so much attention as the behavior of the
 trending topics themselves. 
@@ -78,7 +78,7 @@ interact with it.
 
 The rest of the paper is organised in the following way: first we present
 the methodology that has been followed in order to capture and study
-the data is presented. In the following section the visits to the
+the data is presented. In the next section the visits to the
 Wikipedia page of Copernico and other
 related webpages is analized, along with the evolution in its
 ranking of viewed pages in the Wikipedia. We will also examine the
@@ -116,7 +116,7 @@ shell scripts that download an URL and the use of `jq`.
  file a number with the position that a specific page occupies each
  day. 
  
-The results of analyzing the data are shown in the next section.
+The results of analyzing the data are shown in the following section.
 
 
 ## Visits to the page of Nicolás Copérnico and other related pages
@@ -203,7 +203,7 @@ Copérnico´s, with little variations. We suppose that there is more
 interest in the character than in its contribution, though not a
 lot. On the other hand, when the issue “Copérnico-Ojeda" breaks out,
 all of a sudden the people get curious about the character, without
-caring much about his contribution to the scientific world. It is to
+caring much about his contribution to the scientific world. It is
 important to point out that we do not know whether they are the same
 people that visit the webpage, because of the fact that the path they
 follow in Wikipedia is not returned by the API. Anyway, it is reasonable
@@ -216,7 +216,7 @@ paragraph of the theory page, being the tenth link in this case.
 
 Let´s also see another page, Galileo Galilei´s, who spread the
 heliocentric theory. His name  does not show up in any way in the
-incident but to check the visits here would be relevant to study the interest these kind of
+incident but checking the visits here would be relevant to study the interest these kind of
 pages have and whether there is a offshoot of interest from one to
 another. 
 
@@ -229,16 +229,16 @@ galileo.datos <- data.frame( dia=c(1:nrow(galileo.2016),1:nrow(galileo.2017)),
 ggplot(galileo.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 ```
 
-Apart from the curiosity on  do they evolve in the same way, with a
+Apart from the curiosity on how  do they evolve in the same way, with a
 considerable drop the seventh day, there is neither an obvious
 tendency nor can we suppose that pages of this kind of content could
 have an increased interest. In fact, the twelfth day there were less
 visits in Galileo´s page than last year. Although there is a chance of
 a transfer of attention and hence of visits from one to another, since
-Galileo´s is linked to Copérnicos, and as there aren´t changes in the
-same way as in Copérnico´s rules out a sudden interest in the
+Galileo´s is linked to Copérnico´s, and as there aren´t changes in the
+same way as in Copérnico´s a sudden interest in the
 Renaissance Science and the heliocentric theory like a cause of the
-rise in visits that will be then attributable to the incident. 
+rise in visits that will be then attributable to the incident is ruled out. 
 
 From this analysis we can conclude that the interest in a particular
 Wikipedia page famous through a meme in the social networks lasts
@@ -273,9 +273,9 @@ ratio <- data.frame( day=c(1:nrow(john.2016)),ratio=john.2017$V1/john.2016$V1)
 ggplot(ratio,aes(x=day,y=ratio,color='Ratio'))+geom_line()+scale_y_log10() + theme_tufte() + geom_hline(aes(yintercept=1))
 ```
 
-We plot the *y* axis in a logarithmic scale to see more clearly the ration after *relaxation*. The straight line goes through the ratio == 1. Although there are variations, for a few days after the peak ratio is still slightly higher than 1, which seems to imply that the *mindshare* of this particular meme follows two different phases: one of sharp decline, that lasts the aforementioned 7-10 days, followed by a plateau where the decline is much slower, and stais stationary with a ratio higher than one, in the same way as was seen before.
+We plot the *y* axis in a logarithmic scale to see more clearly the ration after *relaxation*. The straight line goes through the ratio == 1. Although there are variations, for a few days after the peak ratio is still slightly higher than 1, which seems to imply that the *mindshare* of this particular meme follows two different phases: one of sharp decline, that lasts the aforementioned 7-10 days, followed by a plateau where the decline is much slower, and stays stationary with a ratio higher than one, in the same way as was seen before.
 
-These tho regimes, duration and notability need not take the same time, and will probably vary along time. We have also examined the cases of three other memes: from left to right, the death of Robert Vaughn in November 2016 and Carrie Fisher and George Michael in December 2016. Our intention was, looking at these events taking place a few months before, if there is any variation. 
+These tho regimes, duration and notability need not take the same time, and will probably vary along time. We have also examined the cases of three other memes: from left to right, the death of Robert Vaughn in November 2016 and Carrie Fisher and George Michael in December 2016. Our intention was, looking at these events taking place a few months before, to see whether there is any variation. 
 
 ```{r carrie,echo=FALSE,fig.width=2.75, fig.height=4,fig.align='top'}
 # Vaughn
@@ -333,11 +333,11 @@ Eventually, all visit graphs ressemble a "witch´s hat"", with a noteworthy peak
 
 By examining the visits of Wikipedia pages through its open API we intend to look for patterns in these visits and, through them, establish the duration of Internet memes, assuming that when one particular person or concept becomes noticeable, people will check out their Wikipedia page as first source of information.
 
-What we have found by looking at nine different pages corresponding to
+We have done it by looking at nine different pages corresponding to
 9 different persons that have become trending topics in social
-networks, but specially in Spain, starting with a very local event
+networks, though specially in Spain, starting with a very local event
 that actually initiated this research. What we have found analyzing
-visit data is that noteworthiness lasts for at least a week, and
+visit´s data is that noteworthiness lasts for at least a week, and
 sometimes a bit more, up to 10 days; from then on, visits go back to
 the usual rate but at a much slower pace. The headline would thus be
 "Fame in social networks lasts for only a week", but this would have
@@ -358,11 +358,11 @@ initial decay and lower decrease afterwards is also consistent with
 the study of [@naaman2011hip] over a wide range of trending topics,
 although no measurements on this duration are made. In this sense,
 this is the first study, although focused on a few and mostly regional
-events, that has focused on the duration and mid-term secondary
+events, that has studied the duration and mid-term secondary
 effects of memes on society's mindshare as reflected in visits to
 Wikipedia pages. 
 
-In general, the use of this API by Wikipedia opens a whole world of possibilities for the research of collective behavior. One of them would be to analyze what part of these visits were done using different devices, and which ones correspond to edits or simple visits. The difference between the increment of visits of life-changing events or other kind of memes might be due to this fact. This could be an interesting venue of research in the near future, as well as checking if there is in fact some change in this one-week duration of memes. 
+In general, the use of this API by Wikipedia opens a whole world of possibilities for the research of collective behavior. One of them would be to analyze what part of these visits were done using different devices, and which ones correspond to edits or simple visits. The difference between the rise in visits of life-changing events or other kind of memes might be due to this fact. This could be an interesting venue of research in the near future, as well as checking if there is in fact some change in this one-week duration of memes. 
 
 
 ## Note
