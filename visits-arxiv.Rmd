@@ -1,7 +1,7 @@
 ---
 title: "Temporal evolution of notoriety of Wikipedia pages with origin in social networks"
 author: "JJ Merelo and Elena Merelo"
-date: "28 de febrero de 2017"
+date: "28 de February de 2017"
 output:
   pdf_document:
     keep_tex: true
@@ -38,7 +38,7 @@ news and even, before and in a lesser measure, the "Efecto Barrapunto"
 Spanish Slashdot. 
 
 However, to the extent of our knowledge, until now there has not
-been many studies analising a similar effect aroused by mentions in
+been many studies analyzing a similar effect aroused by mentions in
 social networks, maybe due to the fact that such an effect is not
 caused by a single website and might be eventually directed to many
 different pages; even lesser is the effect they have in the search or
@@ -52,12 +52,12 @@ the Net has not received so much attention as the behavior of the
 trending topics themselves. 
 
 At the start of 2017, an anecdote in a Wise Men from Orient parade in
-Madrid, in which a video locutor referred to a character in a float as
+Madrid, in which a video newscaster referred to a character in a float as
 Colon, to which he answered “I am Copernico!” in an amusing
 tone,
 [as is narrated (in Spanish) in Verne](http://verne.elpais.com/verne/2017/01/07/articulo/1483785572_720611.html),
 gave way to a storm of memes, which increased on the following days
-when a journalist and a politician discussed in a TV programme about
+when a journalist and a politician discussed in a TV program about
 what did Copernico really do. 
 
 In a series of articles and figures written in Spanish [@merelo17, @merelo17:2, @Merelo2017:figshare,@copernicoooo]
@@ -66,7 +66,7 @@ to the Wikipedia page of Copernico [@wiki:Copernico] we have analyzed
 the change in the number of visits, especially looking for the
 duration of this phenomenon by means of studying the daily
 number of visits. In this article, that closes the series, we try to find the causes of that duration, comparing it with
-other phenomenons of visits to the Wikipedia which have happenned in a
+other phenomenons of visits to the Wikipedia which have happened in a
 similar time frame.
 
 As far as we know, there have been no studies that focus on the
@@ -76,11 +76,11 @@ dependent, and [@naaman2011hip] analyzes other features such as the
 decay in the number of occurrences of trending topics and how people
 interact with it. 
 
-The rest of the paper is organised in the following way: first we present
+The rest of the paper is organized in the following way: first we present
 the methodology that has been followed in order to capture and study
 the data is presented. In the next section the visits to the
 Wikipedia page of Copernico and other
-related webpages is analized, along with the evolution in its
+related webpages is analyzed, along with the evolution in its
 ranking of viewed pages in the Wikipedia. We will also examine the
 visits to the pages of other persons that have become notorious due to
 several reasons. Finally, we will draw some conclusions. 
@@ -89,11 +89,11 @@ several reasons. Finally, we will draw some conclusions.
 
 
 The Wikipedia, through its application programming interface (API),
-allows acces to the visits of each and every one of the different
+allows access to the visits of each and every one of the different
 pages it hosts. It is a REST interface which can be directly accessed
 without any authentication. For the purposes of this paper, we tap
 this API using  a script that, along with the rest of data and
-programmes, is free software and hence can be downloaded from GitHub
+programs, is free software and hence can be downloaded from GitHub
 [@Merelo2017:figshare]. The script uses `curl` for downloading the
 file, just by codifying as URL the name of the page, next to
 `all-agents`, and selecting as parameters the two dates in which we
@@ -136,7 +136,7 @@ datos <- data.frame( dia=c(1:nrow(datos.2016),1:nrow(datos.2017)),
 
 First we will focus on the anecdote that originated this paper by
 analyzing the visits to the Nicolás Copérnico page in the Spanish
-wikipedia during 2017 and the same period in 2016. This period falls
+Wikipedia during 2017 and the same period in 2016. This period falls
 outside the school year in Spain, with classes starting just next to
 that day. That might account for a certain interest in the page, which
 implies that there will be some daily variation in the number of
@@ -179,7 +179,7 @@ hc.datos <- data.frame( dia=c(1:nrow(hc.2016),1:nrow(hc.2017)),
 ggplot(hc.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_tufte()
 ```
 The number of visits moves in a different scale and thus there are
-more fluctiations along the day. However, like in the previous case,
+more fluctuations along the day. However, like in the previous case,
 even though initially the visits were very much alike or even
 inferiors, presumably in five days it went back to its initial value,
 with a small variation. In five days it has less visits than last
@@ -235,7 +235,7 @@ tendency nor can we suppose that pages of this kind of content could
 have an increased interest. In fact, the twelfth day there were less
 visits in Galileo´s page than last year. Although there is a chance of
 a transfer of attention and hence of visits from one to another, since
-Galileo´s is linked to Copérnico´s, and as there aren´t changes in the
+Galileo´s is linked to Copérnico´s, and as there are not changes in the
 same way as in Copérnico´s a sudden interest in the
 Renaissance Science and the heliocentric theory like a cause of the
 rise in visits that will be then attributable to the incident is ruled out. 
@@ -266,7 +266,7 @@ john.datos <- data.frame( dia=c(1:nrow(john.2016),1:nrow(john.2017)),
 ggplot(john.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
-The number of visits reached by John Hurt's wikipedia page is almost 3 times as high as the one reached by Meryl Streep. The mechanism at work here must go in the opposite direction of fame: John Hurt was not probably known by name, so people looked him up much more than Meryl Streep, who is a household name and whose movies are shown continously, even in Spanish TV channels. But even with the different scales, the *relaxation time* hovers around 7 days, a few more in the case of Meryl Streep (left). Besides, when the visits plateau the *new normal* is slightly superior to the visits achieved in the previous year or before the incident that initiated the sudden fame. Let us see this in the second case, the John Hurt page.
+The number of visits reached by John Hurt's Wikipedia page is almost 3 times as high as the one reached by Meryl Streep. The mechanism at work here must go in the opposite direction of fame: John Hurt was not probably known by name, so people looked him up much more than Meryl Streep, who is a household name and whose movies are shown continuously, even in Spanish TV channels. But even with the different scales, the *relaxation time* hovers around 7 days, a few more in the case of Meryl Streep (left). Besides, when the visits plateau the *new normal* is slightly superior to the visits achieved in the previous year or before the incident that initiated the sudden fame. Let us see this in the second case, the John Hurt page.
 
 ```{r ratiojohn,echo=FALSE}
 ratio <- data.frame( day=c(1:nrow(john.2016)),ratio=john.2017$V1/john.2016$V1)
@@ -302,7 +302,7 @@ george.datos <- data.frame( dia=c(1:nrow(george.2016),1:nrow(george.2017)),
 ggplot(george.datos,aes(x=dia,y=visits,group=year,col=year))+geom_point()+geom_smooth(span=0.25)+theme_tufte()
 ```
 
-Let us first look at the first chart on the left, representing visits of the Robert Vaughn page. Being not so well known in pop culture, the peak reached is relatively small, but still visits multiplied 100-fold when his death was known. Carrie Fisher (center) and George Michael (right), being better known, had a higher level of visits, but the visits reached multiply 200-fold, and in this case the two regimes can be observed: sharp decrease that lasts 10 days followd by a plateau where the ratio to visits before the event  is around 2-3. The same type of behavious can be observed about the visits to the page of George Michael. 
+Let us first look at the first chart on the left, representing visits of the Robert Vaughn page. Being not so well known in pop culture, the peak reached is relatively small, but still visits multiplied 100-fold when his death was known. Carrie Fisher (center) and George Michael (right), being better known, had a higher level of visits, but the visits reached multiply 200-fold, and in this case the two regimes can be observed: sharp decrease that lasts 10 days followed by a plateau where the ratio to visits before the event  is around 2-3. The same type of behaviours can be observed about the visits to the page of George Michael. 
 
 Finally, let us look at similar events that happened later along the time line: the viral sensation of Winona Ryder showing a range of facial expressions during a gala (left), and the death of a journalist and famous 80s musical TV anchor in Spain, Paloma Chamorro (right).
 
@@ -327,7 +327,7 @@ ggplot(paloma.datos,aes(x=dia,y=visits,group=year,col=year))+geom_line()+theme_t
 ```
 The chart on the left, although with some *noise*, shows more or less the same phenomenon of a sharp peak followed by rapid decrease in visits, that take between 7 and 10 days. The lower number of visits reached probably accounts for the fact that the meme was self-contained (a series of faces) and did not need additional information on the person. However, the one on the right is entirely familiar in scale and size, with *rebounds* probably due to published obituaries and settling to a number of visits that is slightly superior than originally. 
 
-Eventually, all visit graphs ressemble a "witch´s hat"", with a noteworthy peak and a more gradual decrease in the number of visits in approximately a week´s time, although usually a bit longer. We will examine this findings in the next section, where we present our conclussions. 
+Eventually, all visit graphs resemble a "witch´s hat"", with a noteworthy peak and a more gradual decrease in the number of visits in approximately a week´s time, although usually a bit longer. We will examine this findings in the next section, where we present our conclusions. 
 
 ## Conclusion and discussion.
 
